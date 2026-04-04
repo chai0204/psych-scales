@@ -1,0 +1,96 @@
+{
+  "meta": {
+    "id": "big-five-s",
+    "name": "Big Five尺度短縮版",
+    "short_name": "BFS",
+    "description": "5因子モデルに基づく性格特性を測定する短縮尺度（29項目版）",
+    "source": "和田 (1996)",
+    "target": "成人一般",
+    "language": "ja",
+    "tags": ["人格", "Big Five", "性格"]
+  },
+  "instructions": "以下の項目について、あなた自身にどの程度当てはまるかを選んでください。",
+  "response_options": [
+    { "value": 1, "label": "全く違う" },
+    { "value": 2, "label": "少し違う" },
+    { "value": 3, "label": "どちらでもない" },
+    { "value": 4, "label": "少し当てはまる" },
+    { "value": 5, "label": "かなり当てはまる" },
+    { "value": 6, "label": "非常に当てはまる" },
+    { "value": 7, "label": "全く当てはまる" }
+  ],
+  "items": [
+    { "id": 1,  "text": "話し好き",            "subscale": "extraversion",       "reverse": false },
+    { "id": 2,  "text": "無口な",               "subscale": "extraversion",       "reverse": true  },
+    { "id": 3,  "text": "社交的な",             "subscale": "extraversion",       "reverse": false },
+    { "id": 4,  "text": "外向きの",             "subscale": "extraversion",       "reverse": false },
+    { "id": 5,  "text": "無口で内気な",          "subscale": "extraversion",       "reverse": true  },
+    { "id": 6,  "text": "調和のとれた",          "subscale": "agreeableness",      "reverse": false },
+    { "id": 7,  "text": "他人に冷淡な",          "subscale": "agreeableness",      "reverse": true  },
+    { "id": 8,  "text": "親切な",               "subscale": "agreeableness",      "reverse": false },
+    { "id": 9,  "text": "協力的な",             "subscale": "agreeableness",      "reverse": false },
+    { "id": 10, "text": "反抗的な",             "subscale": "agreeableness",      "reverse": true  },
+    { "id": 11, "text": "無責任な",             "subscale": "conscientiousness",  "reverse": true  },
+    { "id": 12, "text": "勤勉な",               "subscale": "conscientiousness",  "reverse": false },
+    { "id": 13, "text": "計画性のある",          "subscale": "conscientiousness",  "reverse": false },
+    { "id": 14, "text": "いい加減な",            "subscale": "conscientiousness",  "reverse": true  },
+    { "id": 15, "text": "怠惰な",               "subscale": "conscientiousness",  "reverse": true  },
+    { "id": 16, "text": "不安になりやすい",       "subscale": "neuroticism",        "reverse": false },
+    { "id": 17, "text": "気苦労の多い",          "subscale": "neuroticism",        "reverse": false },
+    { "id": 18, "text": "心配性な",             "subscale": "neuroticism",        "reverse": false },
+    { "id": 19, "text": "緊張しやすい",          "subscale": "neuroticism",        "reverse": false },
+    { "id": 20, "text": "悩みがち",             "subscale": "neuroticism",        "reverse": false },
+    { "id": 21, "text": "独創的な",             "subscale": "openness",           "reverse": false },
+    { "id": 22, "text": "多才な",               "subscale": "openness",           "reverse": false },
+    { "id": 23, "text": "発明の才のある",         "subscale": "openness",           "reverse": false },
+    { "id": 24, "text": "好奇心が強い",          "subscale": "openness",           "reverse": false },
+    { "id": 25, "text": "積極的に活動する",       "subscale": "openness",           "reverse": false },
+    { "id": 26, "text": "頭が良い",             "subscale": "openness",           "reverse": false },
+    { "id": 27, "text": "洞察力のある",          "subscale": "openness",           "reverse": false },
+    { "id": 28, "text": "想像力に富んだ",         "subscale": "openness",           "reverse": false },
+    { "id": 29, "text": "好奇心が旺盛な",         "subscale": "openness",           "reverse": false }
+  ],
+  "subscales": [
+    {
+      "id": "extraversion",
+      "name": "外向性",
+      "description": "社交性・積極性・話し好きの度合い",
+      "norm_mean": 3.80,
+      "norm_sd": 1.17,
+      "norm_source": "和田 (1996) 大学生N=720"
+    },
+    {
+      "id": "agreeableness",
+      "name": "協調性",
+      "description": "他者への親しみやすさ・協力性の度合い",
+      "norm_mean": 4.49,
+      "norm_sd": 0.97,
+      "norm_source": "和田 (1996) 大学生N=720"
+    },
+    {
+      "id": "conscientiousness",
+      "name": "誠実性",
+      "description": "計画性・勤勉さ・責任感の度合い",
+      "norm_mean": 3.48,
+      "norm_sd": 1.06,
+      "norm_source": "和田 (1996) 大学生N=720"
+    },
+    {
+      "id": "neuroticism",
+      "name": "神経症傾向",
+      "description": "不安・緊張・情緒不安定の度合い",
+      "norm_mean": 4.11,
+      "norm_sd": 1.19,
+      "norm_source": "和田 (1996) 大学生N=720"
+    },
+    {
+      "id": "openness",
+      "name": "開放性",
+      "description": "知的好奇心・独創性・審美性の度合い",
+      "norm_mean": 4.40,
+      "norm_sd": 0.90,
+      "norm_source": "和田 (1996) 大学生N=720"
+    }
+  ],
+  "notes": "項目スコアの平均（素点合計/項目数）で各因子得点を算出。逆転項目は7点法で(1+7-x)で変換。"
+}
