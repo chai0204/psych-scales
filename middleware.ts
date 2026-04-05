@@ -1,23 +1,15 @@
 import { NextRequest, NextResponse } from "next/server";
 import { jwtVerify } from "jose";
+import { createClient } from "@supabase/supabase-js";
 
 const secret = () => new TextEncoder().encode(process.env.SESSION_SECRET!);
 
-const PUBLIC_PATHS = ["/access", "/api/auth/verify"];
+const PUBLIC_PATHS = ["/access", "/api/auth/verify", "/api/admin/login", "/api/admin/logout"];
 const ADMIN_PAGE = "/admin";
 const ADMIN_API = "/api/admin";
 
 export async function middleware(req: NextRequest) {
   const { pathname } = req.nextUrl;
-
-  // 静的ファイルはスキップ
-  if (
-    pathname.startsWith("/_next") ||
-    pathname.startsWith("/favicon") ||
-    pathname.includes(".")
-  ) {
-    return NextResponse.next();
-  }
 
   // 公開パス
   if (PUBLIC_PATHS.some((p) => pathname.startsWith(p))) {
@@ -53,9 +45,28 @@ export async function middleware(req: NextRequest) {
     return NextResponse.redirect(new URL("/access", req.url));
   }
 
+  // guest セッション: DB で revoked / expires_at を再チェック（#1 revoke即時反映）
+  if (session.role === "guest" && session.tokenId) {
+    const supabase = createClient(
+      process.env.SUPABASE_URL!,
+      process.env.SUPABASE_SERVICE_ROLE_KEY!
+    );
+    const { data } = await supabase
+      .from("access_tokens")
+      .select("revoked, expires_at")
+      .eq("id", session.tokenId)
+      .single();
+
+    if (!data || data.revoked || new Date(data.expires_at) < new Date()) {
+      const res = NextResponse.redirect(new URL("/access?error=revoked", req.url));
+      res.cookies.set("session", "", { maxAge: 0, path: "/" });
+      return res;
+    }
+  }
+
   return NextResponse.next();
 }
 
 export const config = {
-  matcher: ["/((?!_next/static|_next/image|favicon.ico).*)"],
+  matcher: ["/((?!_next/static|_next/image|favicon.ico|.*\\..*).)"],
 };

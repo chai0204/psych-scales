@@ -6,10 +6,10 @@ export type Session =
   | { role: "admin" }
   | { role: "guest"; tokenId: string };
 
-export async function signSession(data: Session): Promise<string> {
+export async function signSession(data: Session, expiresIn: string = "7d"): Promise<string> {
   return new SignJWT(data as Record<string, unknown>)
     .setProtectedHeader({ alg: "HS256" })
-    .setExpirationTime("30d")
+    .setExpirationTime(expiresIn)
     .sign(secret());
 }
 

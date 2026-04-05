@@ -32,9 +32,13 @@ export async function GET(req: NextRequest) {
     return NextResponse.redirect(new URL("/access?error=limit", req.url));
   }
 
-  // 使用を記録
+  // Vercel環境向けに信頼性の高いIPを取得（#7）
   const ip =
-    req.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ?? "unknown";
+    req.headers.get("x-real-ip") ??
+    req.headers.get("x-vercel-forwarded-for") ??
+    req.headers.get("x-forwarded-for")?.split(",").at(-1)?.trim() ??
+    "unknown";
+
   const newUses = [...(token.uses ?? []), { at: new Date().toISOString(), ip }];
 
   await supabase
@@ -42,15 +46,20 @@ export async function GET(req: NextRequest) {
     .update({ use_count: token.use_count + 1, uses: newUses })
     .eq("id", tokenId);
 
-  // セッション発行
-  const session = await signSession({ role: "guest", tokenId });
+  // JWT/cookie の有効期限をトークンの expires_at に合わせる（#4）
+  const expiresAt = new Date(token.expires_at);
+  const nowMs = Date.now();
+  const maxAgeSec = Math.max(0, Math.floor((expiresAt.getTime() - nowMs) / 1000));
+  const expiresInSec = `${maxAgeSec}s`;
+
+  const session = await signSession({ role: "guest", tokenId }, expiresInSec);
 
   const res = NextResponse.redirect(new URL("/", baseUrl));
   res.cookies.set("session", session, {
     httpOnly: true,
     secure: process.env.NODE_ENV === "production",
     sameSite: "lax",
-    maxAge: 60 * 60 * 24 * 30,
+    maxAge: maxAgeSec,
     path: "/",
   });
   return res;
