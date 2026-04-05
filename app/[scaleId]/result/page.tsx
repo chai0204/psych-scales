@@ -169,6 +169,11 @@ export default function ResultPage({ params }: { params: Promise<{ scaleId: stri
       backgroundColor: "#ffffff",
       useCORS: true,
       logging: false,
+      // キャプチャ前にページの全スタイルシートを除去し oklch エラーを回避
+      onclone: (_clonedDoc, element) => {
+        // clonedDoc内のlink/styleタグをすべて削除（inline stylesのみ残す）
+        element.ownerDocument.querySelectorAll('link[rel="stylesheet"], style').forEach((el) => el.remove());
+      },
     });
     const imgData = canvas.toDataURL("image/png");
     const pdf = new jsPDF({ orientation: "portrait", unit: "mm", format: "a4" });
