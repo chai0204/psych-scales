@@ -1,64 +1,69 @@
 "use client";
 
-import { use, useEffect, useState } from "react";
+import { use, useEffect, useState, useRef } from "react";
 import Link from "next/link";
 import {
   Radar, RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, ResponsiveContainer, Tooltip,
 } from "recharts";
 import { getScaleById } from "@/lib/scales";
-import type { ScoreResult, SubscaleResult } from "@/lib/types";
+import type { Scale, ScoreResult, SubscaleResult } from "@/lib/types";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 
-// ---- Deviation bar ----
+// ---- max_score のフォールバック計算（古いsessionStorageデータ対応）----
+function enrichResults(results: SubscaleResult[], scale: Scale): SubscaleResult[] {
+  const maxResponseVal = Math.max(...scale.response_options.map((o) => o.value));
+  return results.map((sub) => ({
+    ...sub,
+    max_score: sub.max_score ?? maxResponseVal * sub.item_count,
+  }));
+}
+
+// ---- Deviation bar (inline styles only — for both UI and PDF capture) ----
 function DeviationBar({ value }: { value: number }) {
   const clamped = Math.max(20, Math.min(80, value));
   const pct = ((clamped - 20) / 60) * 100;
-  const color =
-    value >= 60 ? "#3b82f6" : value >= 40 ? "#22c55e" : "#fb923c";
+  const markerPct = ((50 - 20) / 60) * 100;
+  const color = value >= 60 ? "#3b82f6" : value >= 40 ? "#22c55e" : "#fb923c";
   return (
-    <div className="flex items-center gap-3">
-      <div className="flex-1 bg-gray-100 rounded-full h-2 relative">
-        <div
-          className="absolute top-1/2 -translate-y-1/2 w-0.5 h-4 bg-gray-300"
-          style={{ left: `${((50 - 20) / 60) * 100}%` }}
-        />
-        <div
-          className="h-2 rounded-full transition-all"
-          style={{ width: `${pct}%`, backgroundColor: color }}
-        />
+    <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
+      <div style={{ flex: 1, backgroundColor: "#f3f4f6", borderRadius: 9999, height: 8, position: "relative" }}>
+        <div style={{
+          position: "absolute", top: "50%", transform: "translateY(-50%)",
+          width: 2, height: 16, backgroundColor: "#d1d5db", left: `${markerPct}%`,
+        }} />
+        <div style={{
+          height: 8, borderRadius: 9999, backgroundColor: color,
+          width: `${pct}%`, transition: "width 0.3s",
+        }} />
       </div>
-      <span className="text-sm font-bold w-10 text-right">{value.toFixed(1)}</span>
+      <span style={{ fontSize: 14, fontWeight: "bold", width: 40, textAlign: "right" }}>
+        {value.toFixed(1)}
+      </span>
     </div>
   );
 }
 
 // ---- Subscale card ----
 function SubscaleCard({ sub }: { sub: SubscaleResult }) {
-  const maxVal = sub.max_score;
   return (
-    <div className="bg-white rounded-lg border border-gray-200 p-4">
-      <div className="flex items-start justify-between mb-1">
-        <h3 className="font-semibold text-gray-800">{sub.subscale_name}</h3>
+    <div style={{ background: "#fff", borderRadius: 8, border: "1px solid #e5e7eb", padding: "16px" }}>
+      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: 4 }}>
+        <strong style={{ color: "#1f2937", fontSize: 15 }}>{sub.subscale_name}</strong>
         {sub.deviation_score !== undefined && (
-          <span className="text-2xl font-bold text-gray-700">
+          <span style={{ fontSize: 24, fontWeight: "bold", color: "#374151" }}>
             {sub.deviation_score.toFixed(1)}
           </span>
         )}
       </div>
-
-      {/* 素点 / 満点 */}
-      <p className="text-xs text-gray-500 mb-2">
-        素点: {sub.raw_score} / {maxVal}　項目平均: {sub.mean_score.toFixed(2)}　項目数: {sub.item_count}
+      <p style={{ fontSize: 12, color: "#6b7280", marginBottom: 8 }}>
+        素点: {sub.raw_score} / {sub.max_score}　項目平均: {sub.mean_score.toFixed(2)}　項目数: {sub.item_count}
       </p>
-
-      {/* 偏差値バー */}
       {sub.deviation_score !== undefined && (
         <>
           <DeviationBar value={sub.deviation_score} />
-          {/* 計算方式の注記 */}
-          <p className="text-xs text-gray-400 mt-1.5">
+          <p style={{ fontSize: 11, color: "#9ca3af", marginTop: 6 }}>
             偏差値 = 10 × (項目平均 − {sub.norm_mean}) / {sub.norm_sd} + 50
             {sub.norm_source && `　規準: ${sub.norm_source}`}
           </p>
@@ -68,145 +73,78 @@ function SubscaleCard({ sub }: { sub: SubscaleResult }) {
   );
 }
 
-// ---- PDF export (programmatic, oklch不使用) ----
-async function exportPDF(
-  scaleName: string,
-  scaleId: string,
-  source: string,
-  apaCitation: string | undefined,
-  results: SubscaleResult[],
-  clusterName?: string,
-  clusterDesc?: string,
-) {
-  const { jsPDF } = await import("jspdf");
-  const pdf = new jsPDF({ orientation: "portrait", unit: "mm", format: "a4" });
-  const W = pdf.internal.pageSize.getWidth();
-  const margin = 15;
-  const contentW = W - margin * 2;
-  let y = 20;
+// ---- Hidden print template (inline styles only, no oklch) ----
+function PrintTemplate({
+  scale, result, printRef,
+}: {
+  scale: Scale;
+  result: ScoreResult;
+  printRef: React.RefObject<HTMLDivElement | null>;
+}) {
+  const hasDeviation = result.subscale_results.some((s) => s.deviation_score !== undefined);
 
-  const line = (text: string, size = 10, bold = false, color: [number, number, number] = [30, 30, 30]) => {
-    pdf.setFontSize(size);
-    pdf.setFont("helvetica", bold ? "bold" : "normal");
-    pdf.setTextColor(...color);
-    pdf.text(text, margin, y);
-    y += size * 0.45 + 2;
-  };
+  return (
+    <div
+      ref={printRef}
+      style={{
+        position: "fixed", left: "-9999px", top: 0,
+        width: 740, padding: "40px 48px", background: "#fff",
+        fontFamily: "sans-serif", color: "#111",
+      }}
+    >
+      {/* Title */}
+      <h1 style={{ fontSize: 22, fontWeight: "bold", marginBottom: 4 }}>{scale.meta.name}</h1>
+      <p style={{ fontSize: 11, color: "#888", marginBottom: 24 }}>
+        {scale.meta.source}　実施日: {new Date().toLocaleDateString("ja-JP")}
+      </p>
 
-  const gap = (n = 4) => { y += n; };
+      {/* 採点方法 */}
+      <h2 style={{ fontSize: 13, fontWeight: "bold", marginBottom: 6, borderBottom: "1px solid #e5e7eb", paddingBottom: 4 }}>
+        採点方法
+      </h2>
+      <div style={{ fontSize: 11, color: "#555", lineHeight: 1.8, marginBottom: 20 }}>
+        <p>・得点は項目平均（素点合計 ÷ 項目数）を使用</p>
+        <p>・逆転項目は (最小値 + 最大値 − 原点) で変換</p>
+        {hasDeviation && (
+          <>
+            <p>・偏差値 T = 10 × (項目平均 − 規準M) / 規準SD + 50</p>
+            <p>・偏差値の解釈は正規分布を仮定（規準集団との相対比較）</p>
+          </>
+        )}
+      </div>
 
-  // Title
-  line(scaleName, 16, true);
-  line(`${source}　実施日: ${new Date().toLocaleDateString("ja-JP")}`, 9, false, [100, 100, 100]);
-  gap(6);
+      {/* 下位尺度 */}
+      <h2 style={{ fontSize: 13, fontWeight: "bold", marginBottom: 10, borderBottom: "1px solid #e5e7eb", paddingBottom: 4 }}>
+        下位尺度得点
+      </h2>
+      <div style={{ display: "flex", flexDirection: "column", gap: 10, marginBottom: 24 }}>
+        {result.subscale_results.map((sub) => (
+          <SubscaleCard key={sub.subscale_id} sub={sub} />
+        ))}
+      </div>
 
-  // Section: 統計方法の注記
-  line("採点方法", 11, true);
-  gap(1);
-  line("・各下位尺度の得点は項目平均（素点合計 / 項目数）を使用", 8, false, [80, 80, 80]);
-  line("・逆転項目は (最小値 + 最大値 − 原点) で変換", 8, false, [80, 80, 80]);
-  line("・偏差値 T = 10 × (項目平均 − 規準M) / 規準SD + 50", 8, false, [80, 80, 80]);
-  line("・偏差値の解釈は正規分布を仮定（規準集団との相対比較）", 8, false, [80, 80, 80]);
-  gap(6);
+      {/* クラスタ */}
+      {result.cluster && (
+        <div style={{ marginBottom: 24 }}>
+          <h2 style={{ fontSize: 13, fontWeight: "bold", marginBottom: 8, borderBottom: "1px solid #e5e7eb", paddingBottom: 4 }}>
+            クラスタ判定
+          </h2>
+          <p style={{ fontSize: 14, fontWeight: "bold", color: "#2563eb" }}>{result.cluster.name}</p>
+          {result.cluster.description && (
+            <p style={{ fontSize: 12, color: "#555", marginTop: 6 }}>{result.cluster.description}</p>
+          )}
+        </div>
+      )}
 
-  // Section: 下位尺度結果
-  line("下位尺度得点", 11, true);
-  gap(2);
-
-  for (const sub of results) {
-    if (y > 250) { pdf.addPage(); y = 20; }
-
-    pdf.setFontSize(10);
-    pdf.setFont("helvetica", "bold");
-    pdf.setTextColor(30, 30, 30);
-    pdf.text(sub.subscale_name, margin, y);
-
-    if (sub.deviation_score !== undefined) {
-      pdf.setFont("helvetica", "bold");
-      pdf.setFontSize(12);
-      pdf.setTextColor(37, 99, 235);
-      pdf.text(`T = ${sub.deviation_score.toFixed(1)}`, W - margin - 20, y, { align: "right" });
-    }
-    y += 5;
-
-    pdf.setFontSize(8);
-    pdf.setFont("helvetica", "normal");
-    pdf.setTextColor(100, 100, 100);
-    pdf.text(
-      `素点: ${sub.raw_score} / ${sub.max_score}　項目平均: ${sub.mean_score.toFixed(2)}　項目数: ${sub.item_count}`,
-      margin, y,
-    );
-    y += 4;
-
-    // bar
-    if (sub.deviation_score !== undefined) {
-      const barW = contentW * 0.7;
-      const barH = 3;
-      const barX = margin;
-      pdf.setFillColor(230, 230, 230);
-      pdf.roundedRect(barX, y, barW, barH, 1, 1, "F");
-
-      const clamped = Math.max(20, Math.min(80, sub.deviation_score));
-      const fillPct = (clamped - 20) / 60;
-      const fillColor: [number, number, number] =
-        sub.deviation_score >= 60 ? [59, 130, 246] :
-        sub.deviation_score >= 40 ? [34, 197, 94] : [251, 146, 60];
-      pdf.setFillColor(...fillColor);
-      pdf.roundedRect(barX, y, barW * fillPct, barH, 1, 1, "F");
-
-      // 偏差値50マーカー
-      const markerX = barX + barW * (30 / 60);
-      pdf.setDrawColor(150, 150, 150);
-      pdf.setLineWidth(0.3);
-      pdf.line(markerX, y - 1, markerX, y + barH + 1);
-      y += 5;
-
-      if (sub.norm_source) {
-        pdf.setFontSize(7);
-        pdf.setTextColor(150, 150, 150);
-        pdf.text(`規準: ${sub.norm_source}`, margin, y);
-        y += 3.5;
-      }
-    }
-    gap(3);
-  }
-
-  // Section: クラスタ
-  if (clusterName) {
-    if (y > 240) { pdf.addPage(); y = 20; }
-    gap(2);
-    line("クラスタ判定", 11, true);
-    gap(1);
-    line(clusterName, 10, true, [37, 99, 235]);
-    if (clusterDesc) {
-      gap(1);
-      const wrapped = pdf.splitTextToSize(clusterDesc, contentW);
-      pdf.setFontSize(9);
-      pdf.setFont("helvetica", "normal");
-      pdf.setTextColor(80, 80, 80);
-      pdf.text(wrapped, margin, y);
-      y += wrapped.length * 5;
-    }
-    gap(4);
-  }
-
-  // Section: 引用文献
-  if (apaCitation) {
-    if (y > 250) { pdf.addPage(); y = 20; }
-    pdf.setDrawColor(200, 200, 200);
-    pdf.setLineWidth(0.3);
-    pdf.line(margin, y, W - margin, y);
-    gap(4);
-    line("引用文献", 9, true, [80, 80, 80]);
-    gap(1);
-    const wrapped = pdf.splitTextToSize(apaCitation, contentW);
-    pdf.setFontSize(8);
-    pdf.setFont("helvetica", "normal");
-    pdf.setTextColor(80, 80, 80);
-    pdf.text(wrapped, margin, y);
-  }
-
-  pdf.save(`${scaleId}_result.pdf`);
+      {/* APA引用 */}
+      {scale.meta.apa_citation && (
+        <div style={{ borderTop: "1px solid #e5e7eb", paddingTop: 12 }}>
+          <p style={{ fontSize: 11, fontWeight: "bold", color: "#666", marginBottom: 4 }}>引用文献</p>
+          <p style={{ fontSize: 10, color: "#888", lineHeight: 1.7 }}>{scale.meta.apa_citation}</p>
+        </div>
+      )}
+    </div>
+  );
 }
 
 // ---- Main page ----
@@ -214,6 +152,7 @@ export default function ResultPage({ params }: { params: Promise<{ scaleId: stri
   const { scaleId } = use(params);
   const scale = getScaleById(scaleId);
   const [result, setResult] = useState<ScoreResult | null>(null);
+  const printRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const stored = sessionStorage.getItem(`result_${scaleId}`);
@@ -221,8 +160,50 @@ export default function ResultPage({ params }: { params: Promise<{ scaleId: stri
     if (stored) setResult(JSON.parse(stored));
   }, [scaleId]);
 
+  async function handleExportPDF() {
+    if (!printRef.current) return;
+    const { default: html2canvas } = await import("html2canvas");
+    const { jsPDF } = await import("jspdf");
+    const canvas = await html2canvas(printRef.current, {
+      scale: 2,
+      backgroundColor: "#ffffff",
+      useCORS: true,
+      logging: false,
+    });
+    const imgData = canvas.toDataURL("image/png");
+    const pdf = new jsPDF({ orientation: "portrait", unit: "mm", format: "a4" });
+    const pageW = pdf.internal.pageSize.getWidth();
+    const imgW = pageW - 20;
+    const imgH = (canvas.height * imgW) / canvas.width;
+
+    // 複数ページ対応
+    const pageH = pdf.internal.pageSize.getHeight() - 20;
+    if (imgH <= pageH) {
+      pdf.addImage(imgData, "PNG", 10, 10, imgW, imgH);
+    } else {
+      let remainH = imgH;
+      let srcY = 0;
+      while (remainH > 0) {
+        const sliceH = Math.min(pageH, remainH);
+        const sliceCanvas = document.createElement("canvas");
+        const ratio = canvas.width / imgW;
+        sliceCanvas.width = canvas.width;
+        sliceCanvas.height = sliceH * ratio;
+        const ctx = sliceCanvas.getContext("2d")!;
+        ctx.drawImage(canvas, 0, srcY * ratio, canvas.width, sliceH * ratio, 0, 0, canvas.width, sliceH * ratio);
+        pdf.addImage(sliceCanvas.toDataURL("image/png"), "PNG", 10, 10, imgW, sliceH);
+        remainH -= sliceH;
+        srcY += sliceH;
+        if (remainH > 0) pdf.addPage();
+      }
+    }
+
+    pdf.save(`${scaleId}_result.pdf`);
+  }
+
   function handleExportMarkdown() {
     if (!result || !scale) return;
+    const enriched = enrichResults(result.subscale_results, scale);
     const lines: string[] = [
       `# ${scale.meta.name} 結果`,
       ``,
@@ -231,7 +212,7 @@ export default function ResultPage({ params }: { params: Promise<{ scaleId: stri
       ``,
       `## 採点方法`,
       ``,
-      `- 各下位尺度の得点は項目平均（素点合計 / 項目数）を使用`,
+      `- 得点は項目平均（素点合計 / 項目数）を使用`,
       `- 逆転項目は (最小値 + 最大値 − 原点) で変換`,
       `- 偏差値 T = 10 × (項目平均 − 規準M) / 規準SD + 50`,
       `- 偏差値の解釈は正規分布を仮定（規準集団との相対比較）`,
@@ -240,7 +221,7 @@ export default function ResultPage({ params }: { params: Promise<{ scaleId: stri
       ``,
       `| 尺度 | 素点 / 満点 | 項目平均 | 偏差値 | 規準 M (SD) |`,
       `|---|---|---|---|---|`,
-      ...result.subscale_results.map((s) =>
+      ...enriched.map((s) =>
         `| ${s.subscale_name} | ${s.raw_score} / ${s.max_score} | ${s.mean_score.toFixed(2)} | ${s.deviation_score?.toFixed(1) ?? "—"} | ${s.norm_mean !== undefined ? `${s.norm_mean} (${s.norm_sd})` : "—"} |`
       ),
     ];
@@ -279,38 +260,27 @@ export default function ResultPage({ params }: { params: Promise<{ scaleId: stri
     );
   }
 
-  // Radar chart data: 偏差値があれば偏差値、なければ項目平均
-  const radarData = result.subscale_results.map((s) => ({
+  const enriched = enrichResults(result.subscale_results, scale);
+  const hasDeviation = enriched.some((s) => s.deviation_score !== undefined);
+  const radarMin = hasDeviation ? 20 : 1;
+  const radarMax = hasDeviation ? 80 : Math.max(...enriched.map((s) => s.max_score / s.item_count));
+  const radarData = enriched.map((s) => ({
     name: s.subscale_name,
     value: s.deviation_score ?? s.mean_score,
-    fullMark: s.deviation_score !== undefined ? 80 : undefined,
   }));
-  const hasDeviation = result.subscale_results.some((s) => s.deviation_score !== undefined);
-  const radarMin = hasDeviation ? 20 : 1;
-  const radarMax = hasDeviation ? 80 : Math.max(...result.subscale_results.map((s) => s.max_score / s.item_count));
 
   return (
     <main className="min-h-screen bg-gray-50">
+      {/* 隠しPDFテンプレート（html2canvas用） */}
+      <PrintTemplate scale={scale} result={{ ...result, subscale_results: enriched }} printRef={printRef} />
+
       <div className="max-w-2xl mx-auto px-4 py-8">
         {/* ナビ */}
         <div className="flex items-center justify-between mb-6">
           <Link href="/" className="text-sm text-gray-400 hover:text-gray-600">← 一覧に戻る</Link>
           <div className="flex gap-2">
             <Button variant="outline" size="sm" onClick={handleExportMarkdown}>Markdown</Button>
-            <Button
-              variant="outline" size="sm"
-              onClick={() =>
-                exportPDF(
-                  scale.meta.name, scaleId, scale.meta.source,
-                  scale.meta.apa_citation,
-                  result.subscale_results,
-                  result.cluster?.name,
-                  result.cluster?.description,
-                )
-              }
-            >
-              PDF
-            </Button>
+            <Button variant="outline" size="sm" onClick={handleExportPDF}>PDF</Button>
           </div>
         </div>
 
@@ -321,7 +291,7 @@ export default function ResultPage({ params }: { params: Promise<{ scaleId: stri
         </p>
 
         {/* レーダーチャート */}
-        {result.subscale_results.length >= 3 && (
+        {enriched.length >= 3 && (
           <div className="bg-white rounded-lg border border-gray-200 p-4 mb-6">
             <h2 className="text-sm font-semibold text-gray-600 mb-3">
               {hasDeviation ? "偏差値プロファイル" : "得点プロファイル"}
@@ -330,19 +300,8 @@ export default function ResultPage({ params }: { params: Promise<{ scaleId: stri
               <RadarChart data={radarData} margin={{ top: 10, right: 30, bottom: 10, left: 30 }}>
                 <PolarGrid />
                 <PolarAngleAxis dataKey="name" tick={{ fontSize: 11 }} />
-                <PolarRadiusAxis
-                  angle={90}
-                  domain={[radarMin, radarMax]}
-                  tick={{ fontSize: 9 }}
-                  tickCount={4}
-                />
-                <Radar
-                  name="得点"
-                  dataKey="value"
-                  stroke="#3b82f6"
-                  fill="#3b82f6"
-                  fillOpacity={0.25}
-                />
+                <PolarRadiusAxis angle={90} domain={[radarMin, radarMax]} tick={{ fontSize: 9 }} tickCount={4} />
+                <Radar name="得点" dataKey="value" stroke="#3b82f6" fill="#3b82f6" fillOpacity={0.25} />
                 <Tooltip formatter={(v) => typeof v === "number" ? v.toFixed(1) : v} />
               </RadarChart>
             </ResponsiveContainer>
@@ -363,7 +322,7 @@ export default function ResultPage({ params }: { params: Promise<{ scaleId: stri
 
         {/* 下位尺度カード */}
         <div className="space-y-3 mb-6">
-          {result.subscale_results.map((sub) => (
+          {enriched.map((sub) => (
             <SubscaleCard key={sub.subscale_id} sub={sub} />
           ))}
         </div>
