@@ -1,10 +1,16 @@
 import { NextRequest, NextResponse } from "next/server";
-import { Resend } from "resend";
+import nodemailer from "nodemailer";
 import { randomBytes } from "crypto";
 import { supabase } from "@/lib/supabase";
 import { checkOrigin } from "@/lib/csrf";
 
-const resend = new Resend(process.env.RESEND_API_KEY);
+const transporter = nodemailer.createTransport({
+  service: "gmail",
+  auth: {
+    user: process.env.GMAIL_USER,
+    pass: process.env.GMAIL_APP_PASSWORD,
+  },
+});
 
 // GET: トークン一覧
 export async function GET() {
@@ -32,7 +38,6 @@ export async function POST(req: NextRequest) {
     Date.now() + expires_in_days * 24 * 60 * 60 * 1000
   ).toISOString();
 
-  // #8: URLにはUUIDではなくランダムな token_secret を使用
   const token_secret = randomBytes(32).toString("hex");
 
   const { data: token, error } = await supabase
@@ -50,15 +55,14 @@ export async function POST(req: NextRequest) {
   if (error) return NextResponse.json({ error: error.message }, { status: 500 });
 
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL ?? "http://localhost:3000";
-  // URLにはtoken_secretを使用（DBのprimary keyを露出しない）
   const accessUrl = `${baseUrl}/access?token=${token_secret}`;
 
   const expiresLabel =
     expires_in_days === 1 ? "1日" :
     expires_in_days === 7 ? "1週間" : "1ヶ月";
 
-  await resend.emails.send({
-    from: "onboarding@resend.dev",
+  await transporter.sendMail({
+    from: `心理尺度サイト <${process.env.GMAIL_USER}>`,
     to: email,
     subject: "心理尺度サイトへのアクセスリンク",
     html: `
