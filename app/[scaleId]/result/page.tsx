@@ -82,6 +82,12 @@ function PrintTemplate({
   printRef: React.RefObject<HTMLDivElement | null>;
 }) {
   const hasDeviation = result.subscale_results.some((s) => s.deviation_score !== undefined);
+  const radarData = result.subscale_results.map((s) => ({
+    name: s.subscale_name,
+    value: s.deviation_score ?? s.mean_score,
+  }));
+  const radarMin = hasDeviation ? 20 : 1;
+  const radarMax = hasDeviation ? 80 : Math.max(...result.subscale_results.map((s) => s.max_score / s.item_count));
 
   return (
     <div
@@ -97,6 +103,29 @@ function PrintTemplate({
       <p style={{ fontSize: 11, color: "#888", marginBottom: 24 }}>
         {scale.meta.source}　実施日: {new Date().toLocaleDateString("ja-JP")}
       </p>
+
+      {/* レーダーチャート（固定サイズ — ResponsiveContainer不使用でhtml2canvas対応） */}
+      {radarData.length >= 3 && (
+        <div style={{ marginBottom: 24 }}>
+          <h2 style={{ fontSize: 13, fontWeight: "bold", marginBottom: 8, borderBottom: "1px solid #e5e7eb", paddingBottom: 4 }}>
+            {hasDeviation ? "偏差値プロファイル" : "得点プロファイル"}
+          </h2>
+          <div style={{ display: "flex", justifyContent: "center" }}>
+            <RadarChart width={500} height={320} data={radarData} margin={{ top: 20, right: 40, bottom: 20, left: 40 }}>
+              <PolarGrid stroke="#e5e7eb" />
+              <PolarAngleAxis dataKey="name" tick={{ fontSize: 11, fill: "#374151" }} />
+              <PolarRadiusAxis
+                angle={90}
+                domain={[radarMin, radarMax]}
+                tick={{ fontSize: 9, fill: "#9ca3af" }}
+                tickCount={4}
+                stroke="#e5e7eb"
+              />
+              <Radar name="得点" dataKey="value" stroke="#3b82f6" fill="#3b82f6" fillOpacity={0.25} />
+            </RadarChart>
+          </div>
+        </div>
+      )}
 
       {/* 採点方法 */}
       <h2 style={{ fontSize: 13, fontWeight: "bold", marginBottom: 6, borderBottom: "1px solid #e5e7eb", paddingBottom: 4 }}>
