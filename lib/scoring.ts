@@ -59,6 +59,7 @@ export function calculateScore(
     return {
       subscale_id: sub.id,
       subscale_name: sub.name,
+      subscale_description: sub.description,
       group: sub.group,
       raw_score: rawSum,
       max_score: maxVal * scores.length,

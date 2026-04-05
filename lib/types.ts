@@ -68,6 +68,7 @@ export interface Scale {
 export interface SubscaleResult {
   subscale_id: string;
   subscale_name: string;
+  subscale_description?: string; // subscale.description をそのまま引き継ぐ
   group?: string;               // subscale.group をそのまま引き継ぐ
   raw_score: number;
   max_score: number;               // 満点（最大選択肢値 × 項目数）

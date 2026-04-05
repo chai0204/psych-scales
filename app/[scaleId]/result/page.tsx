@@ -50,7 +50,12 @@ function SubscaleCard({ sub }: { sub: SubscaleResult }) {
   return (
     <div style={{ background: "#fff", borderRadius: 8, border: "1px solid #e5e7eb", padding: "16px" }}>
       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: 4 }}>
-        <strong style={{ color: "#1f2937", fontSize: 15 }}>{sub.subscale_name}</strong>
+        <div>
+          <strong style={{ color: "#1f2937", fontSize: 15 }}>{sub.subscale_name}</strong>
+          {sub.subscale_description && (
+            <span style={{ fontSize: 12, color: "#6b7280", marginLeft: 6 }}>: {sub.subscale_description}</span>
+          )}
+        </div>
         {sub.deviation_score !== undefined && (
           <span style={{ fontSize: 24, fontWeight: "bold", color: "#374151" }}>
             {sub.deviation_score.toFixed(1)}

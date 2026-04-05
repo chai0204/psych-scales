@@ -9,123 +9,473 @@
     "doi": "10.3389/fpsyg.2022.924351",
     "target": "大学生",
     "language": "ja",
-    "tags": ["パーソナリティ", "ビッグファイブ", "外向性", "協調性", "勤勉性", "神経症傾向", "開放性", "ファセット", "BFI-2"]
+    "tags": [
+      "パーソナリティ",
+      "ビッグファイブ",
+      "外向性",
+      "協調性",
+      "勤勉性",
+      "神経症傾向",
+      "開放性",
+      "ファセット",
+      "BFI-2"
+    ]
   },
   "instructions": "以下の項目についてあなたにどの程度あてはまるか，最も近いと思う数字を選んでください。私は...",
   "response_options": [
-    { "value": 1, "label": "全くあてはまらない" },
-    { "value": 2, "label": "あてはまらない" },
-    { "value": 3, "label": "どちらともいえない" },
-    { "value": 4, "label": "あてはまる" },
-    { "value": 5, "label": "とてもよくあてはまる" }
+    {
+      "value": 1,
+      "label": "全くあてはまらない"
+    },
+    {
+      "value": 2,
+      "label": "あてはまらない"
+    },
+    {
+      "value": 3,
+      "label": "どちらともいえない"
+    },
+    {
+      "value": 4,
+      "label": "あてはまる"
+    },
+    {
+      "value": 5,
+      "label": "とてもよくあてはまる"
+    }
   ],
   "items": [
-    { "id": 1,  "text": "積極的で，社交的である。", "subscale": "sociability", "reverse": false },
-    { "id": 2,  "text": "思いやりがあり，優しい。", "subscale": "compassion", "reverse": false },
-    { "id": 3,  "text": "行き当たりばったりな方だ。", "subscale": "organization", "reverse": true },
-    { "id": 4,  "text": "リラックスしていて，ストレスにうまく対処している。", "subscale": "anxiety", "reverse": true },
-    { "id": 5,  "text": "芸術的関心があまりない。", "subscale": "aesthetic-sensitivity", "reverse": true },
-    { "id": 6,  "text": "積極的な性格だ。", "subscale": "assertiveness", "reverse": false },
-    { "id": 7,  "text": "礼儀正しく，他人に敬意をもって接する。", "subscale": "respectfulness", "reverse": false },
-    { "id": 8,  "text": "だらだらと過ごす方だ。", "subscale": "productiveness", "reverse": true },
-    { "id": 9,  "text": "失敗を経験しても楽天的なままでいる。", "subscale": "depression", "reverse": true },
-    { "id": 10, "text": "色々な物事に対する好奇心が強い。", "subscale": "intellectual-curiosity", "reverse": false },
-    { "id": 11, "text": "めったに興奮したり，熱狂したりしない。", "subscale": "energy-level", "reverse": true },
-    { "id": 12, "text": "他人の欠点を見つけ出す方だ。", "subscale": "trust", "reverse": true },
-    { "id": 13, "text": "しっかりしていて，真面目だ。", "subscale": "responsibility", "reverse": false },
-    { "id": 14, "text": "不機嫌になりやすく，感情の起伏が激しい。", "subscale": "emotional-volatility", "reverse": false },
-    { "id": 15, "text": "創意工夫が得意で，うまい方法を思いつくことができる。", "subscale": "creative-imagination", "reverse": false },
-    { "id": 16, "text": "無口な方だ。", "subscale": "sociability", "reverse": true },
-    { "id": 17, "text": "他人のことを思って心が痛むことはほとんどない。", "subscale": "compassion", "reverse": true },
-    { "id": 18, "text": "几帳面で，規則正しく整えることが好きだ。", "subscale": "organization", "reverse": false },
-    { "id": 19, "text": "神経が張り詰めることがある。", "subscale": "anxiety", "reverse": false },
-    { "id": 20, "text": "芸術，音楽，文学に魅了されている。", "subscale": "aesthetic-sensitivity", "reverse": false },
-    { "id": 21, "text": "上に立つ方で，リーダーとして活動する。", "subscale": "assertiveness", "reverse": false },
-    { "id": 22, "text": "他人と言い争いを始める。", "subscale": "respectfulness", "reverse": true },
-    { "id": 23, "text": "なかなか作業に取り掛かることができない。", "subscale": "productiveness", "reverse": true },
-    { "id": 24, "text": "安心感を抱いており，心地よい。", "subscale": "depression", "reverse": true },
-    { "id": 25, "text": "知的で哲学的な考察を避けるようにしている。", "subscale": "intellectual-curiosity", "reverse": true },
-    { "id": 26, "text": "他の人と比べて活発ではない。", "subscale": "energy-level", "reverse": true },
-    { "id": 27, "text": "他人を大目に見る寛大な人間だ。", "subscale": "trust", "reverse": false },
-    { "id": 28, "text": "少し不注意なところがある。", "subscale": "responsibility", "reverse": true },
-    { "id": 29, "text": "情緒が安定しており，簡単には取り乱さない。", "subscale": "emotional-volatility", "reverse": true },
-    { "id": 30, "text": "創造性がほとんどない。", "subscale": "creative-imagination", "reverse": true },
-    { "id": 31, "text": "内気なところがあり，内向的である。", "subscale": "sociability", "reverse": true },
-    { "id": 32, "text": "進んで手伝おうとし，他人の利益を優先する。", "subscale": "compassion", "reverse": false },
-    { "id": 33, "text": "物事をきれいに揃えたりまとめたりする。", "subscale": "organization", "reverse": false },
-    { "id": 34, "text": "多くの悩みごとを抱えている。", "subscale": "anxiety", "reverse": false },
-    { "id": 35, "text": "芸術と美を重視する。", "subscale": "aesthetic-sensitivity", "reverse": false },
-    { "id": 36, "text": "人々の行動を左右するような影響力をもつことは難しいと感じる。", "subscale": "assertiveness", "reverse": true },
-    { "id": 37, "text": "他人を見下すことがある。", "subscale": "respectfulness", "reverse": true },
-    { "id": 38, "text": "手際よく行動し，物事を最後までやり遂げる。", "subscale": "productiveness", "reverse": false },
-    { "id": 39, "text": "よく悲しい気分になる。", "subscale": "depression", "reverse": false },
-    { "id": 40, "text": "考え方が複雑で，深く考える人間だ。", "subscale": "intellectual-curiosity", "reverse": false },
-    { "id": 41, "text": "活力にあふれている。", "subscale": "energy-level", "reverse": false },
-    { "id": 42, "text": "他人が考えていることを怪しんで不信感を抱く。", "subscale": "trust", "reverse": true },
-    { "id": 43, "text": "ちゃんとしていて，いつも周りから当てにされる。", "subscale": "responsibility", "reverse": false },
-    { "id": 44, "text": "自分の感情をコントロールしている。", "subscale": "emotional-volatility", "reverse": true },
-    { "id": 45, "text": "ものごとを自由に心に思い描くのは難しい。", "subscale": "creative-imagination", "reverse": true },
-    { "id": 46, "text": "おしゃべりな方だ。", "subscale": "sociability", "reverse": false },
-    { "id": 47, "text": "冷淡で思いやりに欠けることがある。", "subscale": "compassion", "reverse": true },
-    { "id": 48, "text": "乱雑なものはそのままにして，きれいにしない。", "subscale": "organization", "reverse": true },
-    { "id": 49, "text": "不安や恐れを感じることはめったにない。", "subscale": "anxiety", "reverse": true },
-    { "id": 50, "text": "詩や演劇をつまらないと思う。", "subscale": "aesthetic-sensitivity", "reverse": true },
-    { "id": 51, "text": "他の人にリーダーシップを発揮してもらうほうが良いと思う。", "subscale": "assertiveness", "reverse": true },
-    { "id": 52, "text": "他人に丁寧で，礼儀正しい。", "subscale": "respectfulness", "reverse": false },
-    { "id": 53, "text": "根気強く，与えられた課題が終わるまで取り組む。", "subscale": "productiveness", "reverse": false },
-    { "id": 54, "text": "憂うつになり，落胆する方だ。", "subscale": "depression", "reverse": false },
-    { "id": 55, "text": "抽象的な知識にはほとんど関心がない。", "subscale": "intellectual-curiosity", "reverse": true },
-    { "id": 56, "text": "情熱を大いに表に出す。", "subscale": "energy-level", "reverse": false },
-    { "id": 57, "text": "人々のいちばん良いところを思い浮かべる。", "subscale": "trust", "reverse": false },
-    { "id": 58, "text": "無責任な行動をしてしまうことがある。", "subscale": "responsibility", "reverse": true },
-    { "id": 59, "text": "神経質で，感情的になりやすい。", "subscale": "emotional-volatility", "reverse": false },
-    { "id": 60, "text": "個性的で，新しいアイディアを思いつく。", "subscale": "creative-imagination", "reverse": false }
+    {
+      "id": 1,
+      "text": "積極的で，社交的である。",
+      "subscale": "sociability",
+      "reverse": false
+    },
+    {
+      "id": 2,
+      "text": "思いやりがあり，優しい。",
+      "subscale": "compassion",
+      "reverse": false
+    },
+    {
+      "id": 3,
+      "text": "行き当たりばったりな方だ。",
+      "subscale": "organization",
+      "reverse": true
+    },
+    {
+      "id": 4,
+      "text": "リラックスしていて，ストレスにうまく対処している。",
+      "subscale": "anxiety",
+      "reverse": true
+    },
+    {
+      "id": 5,
+      "text": "芸術的関心があまりない。",
+      "subscale": "aesthetic-sensitivity",
+      "reverse": true
+    },
+    {
+      "id": 6,
+      "text": "積極的な性格だ。",
+      "subscale": "assertiveness",
+      "reverse": false
+    },
+    {
+      "id": 7,
+      "text": "礼儀正しく，他人に敬意をもって接する。",
+      "subscale": "respectfulness",
+      "reverse": false
+    },
+    {
+      "id": 8,
+      "text": "だらだらと過ごす方だ。",
+      "subscale": "productiveness",
+      "reverse": true
+    },
+    {
+      "id": 9,
+      "text": "失敗を経験しても楽天的なままでいる。",
+      "subscale": "depression",
+      "reverse": true
+    },
+    {
+      "id": 10,
+      "text": "色々な物事に対する好奇心が強い。",
+      "subscale": "intellectual-curiosity",
+      "reverse": false
+    },
+    {
+      "id": 11,
+      "text": "めったに興奮したり，熱狂したりしない。",
+      "subscale": "energy-level",
+      "reverse": true
+    },
+    {
+      "id": 12,
+      "text": "他人の欠点を見つけ出す方だ。",
+      "subscale": "trust",
+      "reverse": true
+    },
+    {
+      "id": 13,
+      "text": "しっかりしていて，真面目だ。",
+      "subscale": "responsibility",
+      "reverse": false
+    },
+    {
+      "id": 14,
+      "text": "不機嫌になりやすく，感情の起伏が激しい。",
+      "subscale": "emotional-volatility",
+      "reverse": false
+    },
+    {
+      "id": 15,
+      "text": "創意工夫が得意で，うまい方法を思いつくことができる。",
+      "subscale": "creative-imagination",
+      "reverse": false
+    },
+    {
+      "id": 16,
+      "text": "無口な方だ。",
+      "subscale": "sociability",
+      "reverse": true
+    },
+    {
+      "id": 17,
+      "text": "他人のことを思って心が痛むことはほとんどない。",
+      "subscale": "compassion",
+      "reverse": true
+    },
+    {
+      "id": 18,
+      "text": "几帳面で，規則正しく整えることが好きだ。",
+      "subscale": "organization",
+      "reverse": false
+    },
+    {
+      "id": 19,
+      "text": "神経が張り詰めることがある。",
+      "subscale": "anxiety",
+      "reverse": false
+    },
+    {
+      "id": 20,
+      "text": "芸術，音楽，文学に魅了されている。",
+      "subscale": "aesthetic-sensitivity",
+      "reverse": false
+    },
+    {
+      "id": 21,
+      "text": "上に立つ方で，リーダーとして活動する。",
+      "subscale": "assertiveness",
+      "reverse": false
+    },
+    {
+      "id": 22,
+      "text": "他人と言い争いを始める。",
+      "subscale": "respectfulness",
+      "reverse": true
+    },
+    {
+      "id": 23,
+      "text": "なかなか作業に取り掛かることができない。",
+      "subscale": "productiveness",
+      "reverse": true
+    },
+    {
+      "id": 24,
+      "text": "安心感を抱いており，心地よい。",
+      "subscale": "depression",
+      "reverse": true
+    },
+    {
+      "id": 25,
+      "text": "知的で哲学的な考察を避けるようにしている。",
+      "subscale": "intellectual-curiosity",
+      "reverse": true
+    },
+    {
+      "id": 26,
+      "text": "他の人と比べて活発ではない。",
+      "subscale": "energy-level",
+      "reverse": true
+    },
+    {
+      "id": 27,
+      "text": "他人を大目に見る寛大な人間だ。",
+      "subscale": "trust",
+      "reverse": false
+    },
+    {
+      "id": 28,
+      "text": "少し不注意なところがある。",
+      "subscale": "responsibility",
+      "reverse": true
+    },
+    {
+      "id": 29,
+      "text": "情緒が安定しており，簡単には取り乱さない。",
+      "subscale": "emotional-volatility",
+      "reverse": true
+    },
+    {
+      "id": 30,
+      "text": "創造性がほとんどない。",
+      "subscale": "creative-imagination",
+      "reverse": true
+    },
+    {
+      "id": 31,
+      "text": "内気なところがあり，内向的である。",
+      "subscale": "sociability",
+      "reverse": true
+    },
+    {
+      "id": 32,
+      "text": "進んで手伝おうとし，他人の利益を優先する。",
+      "subscale": "compassion",
+      "reverse": false
+    },
+    {
+      "id": 33,
+      "text": "物事をきれいに揃えたりまとめたりする。",
+      "subscale": "organization",
+      "reverse": false
+    },
+    {
+      "id": 34,
+      "text": "多くの悩みごとを抱えている。",
+      "subscale": "anxiety",
+      "reverse": false
+    },
+    {
+      "id": 35,
+      "text": "芸術と美を重視する。",
+      "subscale": "aesthetic-sensitivity",
+      "reverse": false
+    },
+    {
+      "id": 36,
+      "text": "人々の行動を左右するような影響力をもつことは難しいと感じる。",
+      "subscale": "assertiveness",
+      "reverse": true
+    },
+    {
+      "id": 37,
+      "text": "他人を見下すことがある。",
+      "subscale": "respectfulness",
+      "reverse": true
+    },
+    {
+      "id": 38,
+      "text": "手際よく行動し，物事を最後までやり遂げる。",
+      "subscale": "productiveness",
+      "reverse": false
+    },
+    {
+      "id": 39,
+      "text": "よく悲しい気分になる。",
+      "subscale": "depression",
+      "reverse": false
+    },
+    {
+      "id": 40,
+      "text": "考え方が複雑で，深く考える人間だ。",
+      "subscale": "intellectual-curiosity",
+      "reverse": false
+    },
+    {
+      "id": 41,
+      "text": "活力にあふれている。",
+      "subscale": "energy-level",
+      "reverse": false
+    },
+    {
+      "id": 42,
+      "text": "他人が考えていることを怪しんで不信感を抱く。",
+      "subscale": "trust",
+      "reverse": true
+    },
+    {
+      "id": 43,
+      "text": "ちゃんとしていて，いつも周りから当てにされる。",
+      "subscale": "responsibility",
+      "reverse": false
+    },
+    {
+      "id": 44,
+      "text": "自分の感情をコントロールしている。",
+      "subscale": "emotional-volatility",
+      "reverse": true
+    },
+    {
+      "id": 45,
+      "text": "ものごとを自由に心に思い描くのは難しい。",
+      "subscale": "creative-imagination",
+      "reverse": true
+    },
+    {
+      "id": 46,
+      "text": "おしゃべりな方だ。",
+      "subscale": "sociability",
+      "reverse": false
+    },
+    {
+      "id": 47,
+      "text": "冷淡で思いやりに欠けることがある。",
+      "subscale": "compassion",
+      "reverse": true
+    },
+    {
+      "id": 48,
+      "text": "乱雑なものはそのままにして，きれいにしない。",
+      "subscale": "organization",
+      "reverse": true
+    },
+    {
+      "id": 49,
+      "text": "不安や恐れを感じることはめったにない。",
+      "subscale": "anxiety",
+      "reverse": true
+    },
+    {
+      "id": 50,
+      "text": "詩や演劇をつまらないと思う。",
+      "subscale": "aesthetic-sensitivity",
+      "reverse": true
+    },
+    {
+      "id": 51,
+      "text": "他の人にリーダーシップを発揮してもらうほうが良いと思う。",
+      "subscale": "assertiveness",
+      "reverse": true
+    },
+    {
+      "id": 52,
+      "text": "他人に丁寧で，礼儀正しい。",
+      "subscale": "respectfulness",
+      "reverse": false
+    },
+    {
+      "id": 53,
+      "text": "根気強く，与えられた課題が終わるまで取り組む。",
+      "subscale": "productiveness",
+      "reverse": false
+    },
+    {
+      "id": 54,
+      "text": "憂うつになり，落胆する方だ。",
+      "subscale": "depression",
+      "reverse": false
+    },
+    {
+      "id": 55,
+      "text": "抽象的な知識にはほとんど関心がない。",
+      "subscale": "intellectual-curiosity",
+      "reverse": true
+    },
+    {
+      "id": 56,
+      "text": "情熱を大いに表に出す。",
+      "subscale": "energy-level",
+      "reverse": false
+    },
+    {
+      "id": 57,
+      "text": "人々のいちばん良いところを思い浮かべる。",
+      "subscale": "trust",
+      "reverse": false
+    },
+    {
+      "id": 58,
+      "text": "無責任な行動をしてしまうことがある。",
+      "subscale": "responsibility",
+      "reverse": true
+    },
+    {
+      "id": 59,
+      "text": "神経質で，感情的になりやすい。",
+      "subscale": "emotional-volatility",
+      "reverse": false
+    },
+    {
+      "id": 60,
+      "text": "個性的で，新しいアイディアを思いつく。",
+      "subscale": "creative-imagination",
+      "reverse": false
+    }
   ],
   "subscales": [
     {
       "id": "domain-e",
       "name": "外向性 (E)",
       "group": "domain",
-      "computed_from": ["sociability", "assertiveness", "energy-level"],
+      "computed_from": [
+        "sociability",
+        "assertiveness",
+        "energy-level"
+      ],
       "norm_mean": 2.98,
       "norm_sd": 0.72,
-      "norm_source": "Yoshino et al. (2022) 大学生 N=487"
+      "norm_source": "Yoshino et al. (2022) 大学生 N=487",
+      "description": "社交的・積極的・活力のある傾向"
     },
     {
       "id": "domain-a",
       "name": "協調性 (A)",
       "group": "domain",
-      "computed_from": ["compassion", "respectfulness", "trust"],
+      "computed_from": [
+        "compassion",
+        "respectfulness",
+        "trust"
+      ],
       "norm_mean": 3.31,
       "norm_sd": 0.48,
-      "norm_source": "Yoshino et al. (2022) 大学生 N=487"
+      "norm_source": "Yoshino et al. (2022) 大学生 N=487",
+      "description": "他者への共感・協力・思いやりの傾向"
     },
     {
       "id": "domain-c",
       "name": "勤勉性 (C)",
       "group": "domain",
-      "computed_from": ["organization", "productiveness", "responsibility"],
+      "computed_from": [
+        "organization",
+        "productiveness",
+        "responsibility"
+      ],
       "norm_mean": 2.77,
       "norm_sd": 0.58,
-      "norm_source": "Yoshino et al. (2022) 大学生 N=487"
+      "norm_source": "Yoshino et al. (2022) 大学生 N=487",
+      "description": "計画的・勤勉・責任感がある傾向"
     },
     {
       "id": "domain-n",
       "name": "否定的情動性 (N)",
       "group": "domain",
-      "computed_from": ["anxiety", "depression", "emotional-volatility"],
+      "computed_from": [
+        "anxiety",
+        "depression",
+        "emotional-volatility"
+      ],
       "norm_mean": 3.13,
       "norm_sd": 0.73,
-      "norm_source": "Yoshino et al. (2022) 大学生 N=487"
+      "norm_source": "Yoshino et al. (2022) 大学生 N=487",
+      "description": "不安・抑うつ・情緒不安定の傾向（神経症傾向）"
     },
     {
       "id": "domain-o",
       "name": "開放性 (O)",
       "group": "domain",
-      "computed_from": ["intellectual-curiosity", "aesthetic-sensitivity", "creative-imagination"],
+      "computed_from": [
+        "intellectual-curiosity",
+        "aesthetic-sensitivity",
+        "creative-imagination"
+      ],
       "norm_mean": 3.28,
-      "norm_sd": 0.60,
-      "norm_source": "Yoshino et al. (2022) 大学生 N=487"
+      "norm_sd": 0.6,
+      "norm_source": "Yoshino et al. (2022) 大学生 N=487",
+      "description": "知的好奇心・芸術への感受性・想像力の豊かさ"
     },
     {
       "id": "sociability",
@@ -133,7 +483,8 @@
       "group": "facet",
       "norm_mean": 3.22,
       "norm_sd": 0.91,
-      "norm_source": "Yoshino et al. (2022) 大学生 N=487"
+      "norm_source": "Yoshino et al. (2022) 大学生 N=487",
+      "description": "人と交流することを好み、社交的な活動に積極的"
     },
     {
       "id": "assertiveness",
@@ -141,15 +492,17 @@
       "group": "facet",
       "norm_mean": 2.63,
       "norm_sd": 0.78,
-      "norm_source": "Yoshino et al. (2022) 大学生 N=487"
+      "norm_source": "Yoshino et al. (2022) 大学生 N=487",
+      "description": "自分の意見を積極的に述べ、リーダーシップを発揮する"
     },
     {
       "id": "energy-level",
       "name": "活力",
       "group": "facet",
-      "norm_mean": 3.10,
+      "norm_mean": 3.1,
       "norm_sd": 0.78,
-      "norm_source": "Yoshino et al. (2022) 大学生 N=487"
+      "norm_source": "Yoshino et al. (2022) 大学生 N=487",
+      "description": "エネルギッシュで活発、熱意や情熱を表現する"
     },
     {
       "id": "compassion",
@@ -157,7 +510,8 @@
       "group": "facet",
       "norm_mean": 3.38,
       "norm_sd": 0.62,
-      "norm_source": "Yoshino et al. (2022) 大学生 N=487"
+      "norm_source": "Yoshino et al. (2022) 大学生 N=487",
+      "description": "他者の気持ちに共感し、助けようとする"
     },
     {
       "id": "respectfulness",
@@ -165,7 +519,8 @@
       "group": "facet",
       "norm_mean": 3.55,
       "norm_sd": 0.57,
-      "norm_source": "Yoshino et al. (2022) 大学生 N=487"
+      "norm_source": "Yoshino et al. (2022) 大学生 N=487",
+      "description": "他者を尊重し、礼儀正しく接する"
     },
     {
       "id": "trust",
@@ -173,7 +528,8 @@
       "group": "facet",
       "norm_mean": 2.98,
       "norm_sd": 0.66,
-      "norm_source": "Yoshino et al. (2022) 大学生 N=487"
+      "norm_source": "Yoshino et al. (2022) 大学生 N=487",
+      "description": "他者を信頼し、良い面を見ようとする"
     },
     {
       "id": "organization",
@@ -181,15 +537,17 @@
       "group": "facet",
       "norm_mean": 2.85,
       "norm_sd": 0.79,
-      "norm_source": "Yoshino et al. (2022) 大学生 N=487"
+      "norm_source": "Yoshino et al. (2022) 大学生 N=487",
+      "description": "整理整頓を好み、規則正しく几帳面"
     },
     {
       "id": "productiveness",
       "name": "生産性",
       "group": "facet",
       "norm_mean": 2.73,
-      "norm_sd": 0.70,
-      "norm_source": "Yoshino et al. (2022) 大学生 N=487"
+      "norm_sd": 0.7,
+      "norm_source": "Yoshino et al. (2022) 大学生 N=487",
+      "description": "課題に取り組み、やるべきことをやり遂げる"
     },
     {
       "id": "responsibility",
@@ -197,7 +555,8 @@
       "group": "facet",
       "norm_mean": 2.72,
       "norm_sd": 0.64,
-      "norm_source": "Yoshino et al. (2022) 大学生 N=487"
+      "norm_source": "Yoshino et al. (2022) 大学生 N=487",
+      "description": "信頼され、約束や義務を果たす"
     },
     {
       "id": "anxiety",
@@ -205,7 +564,8 @@
       "group": "facet",
       "norm_mean": 3.33,
       "norm_sd": 0.83,
-      "norm_source": "Yoshino et al. (2022) 大学生 N=487"
+      "norm_source": "Yoshino et al. (2022) 大学生 N=487",
+      "description": "心配や緊張、ストレスを感じやすい"
     },
     {
       "id": "depression",
@@ -213,7 +573,8 @@
       "group": "facet",
       "norm_mean": 3.14,
       "norm_sd": 0.81,
-      "norm_source": "Yoshino et al. (2022) 大学生 N=487"
+      "norm_source": "Yoshino et al. (2022) 大学生 N=487",
+      "description": "悲しみや落ち込み、気分の低下を感じやすい"
     },
     {
       "id": "emotional-volatility",
@@ -221,15 +582,17 @@
       "group": "facet",
       "norm_mean": 2.92,
       "norm_sd": 0.87,
-      "norm_source": "Yoshino et al. (2022) 大学生 N=487"
+      "norm_source": "Yoshino et al. (2022) 大学生 N=487",
+      "description": "感情の起伏が激しく、コントロールしにくい"
     },
     {
       "id": "intellectual-curiosity",
       "name": "知的好奇心",
       "group": "facet",
-      "norm_mean": 3.50,
+      "norm_mean": 3.5,
       "norm_sd": 0.66,
-      "norm_source": "Yoshino et al. (2022) 大学生 N=487"
+      "norm_source": "Yoshino et al. (2022) 大学生 N=487",
+      "description": "知識や抽象的概念への興味、哲学的思考を楽しむ"
     },
     {
       "id": "aesthetic-sensitivity",
@@ -237,7 +600,8 @@
       "group": "facet",
       "norm_mean": 3.29,
       "norm_sd": 0.96,
-      "norm_source": "Yoshino et al. (2022) 大学生 N=487"
+      "norm_source": "Yoshino et al. (2022) 大学生 N=487",
+      "description": "芸術・音楽・文学への感受性と鑑賞"
     },
     {
       "id": "creative-imagination",
@@ -245,7 +609,8 @@
       "group": "facet",
       "norm_mean": 3.03,
       "norm_sd": 0.71,
-      "norm_source": "Yoshino et al. (2022) 大学生 N=487"
+      "norm_source": "Yoshino et al. (2022) 大学生 N=487",
+      "description": "独創的なアイデアを生み出す豊かな想像力"
     }
   ],
   "notes": "ドメイン尺度（group:domain）は computed_from で対応するファセット尺度の全項目から集約して計算。ファセット尺度（group:facet）は各4項目。規準値はTable 5（項目平均ベース）から転記。"
