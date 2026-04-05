@@ -4,8 +4,11 @@
 
 ```
 psych-scales/
-├── papers/                    # 論文PDFを置く場所
-│   └── *.pdf
+├── papers/                    # 論文PDFを置く場所（尺度ごとにサブディレクトリ）
+│   └── <尺度id>/
+│       ├── paper.pdf          # 論文本文
+│       ├── items.pdf          # 項目リスト（別紙の場合）
+│       └── *.pdf              # その他補足資料
 ├── lib/
 │   ├── types.ts               # スキーマ型定義
 │   └── scales/
@@ -14,6 +17,12 @@ psych-scales/
 └── docs/
     └── scale-registration-guide.md  # このファイル
 ```
+
+### papers/ のディレクトリ命名規則
+
+- サブディレクトリ名は尺度の `meta.id` と同じにする（例: `big-five-s`）
+- ファイル名は自由（`paper.pdf`, `items.pdf`, `appendix.pdf` など）
+- `/register-scale` スキルはディレクトリ内のPDFをすべて読み込む
 
 ---
 
@@ -150,10 +159,16 @@ npm run dev
 
 ## Claude Code を使った自動登録
 
-論文PDFを `papers/` ディレクトリに置いた後、Claude Code で以下のスキルを使うと自動登録できます。
+尺度IDのサブディレクトリを作り、関連PDFをすべて置いてから呼び出します。
 
+```bash
+# 例: 自己効力感尺度を登録する場合
+mkdir papers/self-efficacy-general
+# → paper.pdf, items.pdf などを配置
+
+/register-scale papers/self-efficacy-general/
 ```
-/register-scale papers/論文名.pdf
-```
+
+複数PDFがある場合（論文本文 + 項目リスト別紙など）、スキルがディレクトリ内の全PDFを読み込んで情報を統合します。
 
 詳細は `.claude/skills/register-scale/SKILL.md` を参照してください。

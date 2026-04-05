@@ -6,7 +6,8 @@
 
 ```
 psych-scales/
-├── papers/          # 論文PDFを置く場所（/register-scale スキル用）
+├── papers/          # 論文PDFを置く場所（尺度ごとにサブディレクトリ）
+│   └── <尺度id>/   #   例: papers/big-five-s/paper.pdf, items.pdf ...
 ├── lib/
 │   ├── types.ts     # スキーマ型定義（Scale, SubscaleResult など）
 │   ├── scoring.ts   # スコアリングエンジン（逆転・偏差値・クラスタ判定）
@@ -25,14 +26,14 @@ psych-scales/
 
 | コマンド | 説明 |
 |---|---|
-| `/register-scale papers/<file>.pdf` | PDFから尺度を自動抽出して登録する |
+| `/register-scale papers/<尺度id>/` | ディレクトリ内の全PDFを読み込んで尺度を登録する |
 
 スキルの詳細は `.claude/skills/register-scale/SKILL.md` を参照。
 
 ## 尺度登録のクイックリファレンス
 
-1. `papers/` にPDFを置く
-2. `/register-scale papers/<file>.pdf` を実行
+1. `papers/<尺度id>/` ディレクトリを作りPDFをすべて置く
+2. `/register-scale papers/<尺度id>/` を実行
 3. 確認後 `lib/scales/<id>.json` が生成され `lib/scales/index.ts` に追加される
 
 手動登録の詳細は `docs/scale-registration-guide.md` を参照。
