@@ -191,18 +191,13 @@ export default function ResultPage({ params }: { params: Promise<{ scaleId: stri
 
   async function handleExportPDF() {
     if (!printRef.current) return;
-    const { default: html2canvas } = await import("html2canvas");
+    const { default: html2canvas } = await import("html2canvas-pro");
     const { jsPDF } = await import("jspdf");
     const canvas = await html2canvas(printRef.current, {
       scale: 2,
       backgroundColor: "#ffffff",
       useCORS: true,
       logging: false,
-      // キャプチャ前にページの全スタイルシートを除去し oklch エラーを回避
-      onclone: (_clonedDoc, element) => {
-        // clonedDoc内のlink/styleタグをすべて削除（inline stylesのみ残す）
-        element.ownerDocument.querySelectorAll('link[rel="stylesheet"], style').forEach((el) => el.remove());
-      },
     });
     const imgData = canvas.toDataURL("image/png");
     const pdf = new jsPDF({ orientation: "portrait", unit: "mm", format: "a4" });
