@@ -5,6 +5,7 @@
     "short_name": "BFS",
     "description": "5因子モデルに基づく性格特性を測定する短縮尺度（29項目版）",
     "source": "和田 (1996)",
+    "apa_citation": "和田 さゆり. (1996). 性格特性語を用いたBig Five尺度の作成. 教育心理学研究, 44(1), 59–67. https://doi.org/10.5926/jjep1953.44.1_59",
     "target": "成人一般",
     "language": "ja",
     "tags": ["人格", "Big Five", "性格"]

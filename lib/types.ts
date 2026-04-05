@@ -45,6 +45,7 @@ export interface ScaleMeta {
   short_name?: string;              // 一覧表示用の短縮名
   description?: string;             // 尺度の説明
   source: string;                   // 出典（例: "山田 & 田中 (2005)"）
+  apa_citation?: string;            // APA形式の完全引用文
   doi?: string;
   target?: string;                  // 対象者（例: "成人一般", "大学生"）
   language: "ja" | "en";
@@ -66,6 +67,7 @@ export interface SubscaleResult {
   subscale_id: string;
   subscale_name: string;
   raw_score: number;
+  max_score: number;               // 満点（最大選択肢値 × 項目数）
   item_count: number;
   mean_score: number;              // 素点の平均（項目数で割った値）
   deviation_score?: number;        // 偏差値（規準値がある場合）

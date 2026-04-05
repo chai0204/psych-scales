@@ -47,6 +47,7 @@ export function calculateScore(
       subscale_id: sub.id,
       subscale_name: sub.name,
       raw_score: rawSum,
+      max_score: maxVal * scores.length,
       item_count: scores.length,
       mean_score: mean,
       deviation_score: deviation !== undefined ? Math.round(deviation * 10) / 10 : undefined,
