@@ -1,5 +1,60 @@
-<!-- BEGIN:nextjs-agent-rules -->
-# This is NOT the Next.js you know
+# psych-scales — AI向けガイド
 
-This version has breaking changes — APIs, conventions, and file structure may all differ from your training data. Read the relevant guide in `node_modules/next/dist/docs/` before writing any code. Heed deprecation notices.
-<!-- END:nextjs-agent-rules -->
+心理尺度の回答・採点・偏差値算出を行うWebアプリ。ブラウザ完結（サーバーへのデータ送信なし）。
+
+## プロジェクト構成
+
+```
+psych-scales/
+├── papers/          # 論文PDFを置く場所（/register-scale スキル用）
+├── lib/
+│   ├── types.ts     # スキーマ型定義（Scale, SubscaleResult など）
+│   ├── scoring.ts   # スコアリングエンジン（逆転・偏差値・クラスタ判定）
+│   └── scales/
+│       ├── index.ts # 尺度レジストリ — 新規登録時はここを編集する
+│       └── *.json   # 各尺度データ
+├── app/
+│   ├── page.tsx              # ホーム（尺度一覧・検索）
+│   ├── [scaleId]/page.tsx    # 回答画面
+│   └── [scaleId]/result/page.tsx  # 結果画面（偏差値・レーダーチャート・PDF/Md出力）
+└── docs/
+    └── scale-registration-guide.md  # 尺度登録の詳細ガイド
+```
+
+## スキル
+
+| コマンド | 説明 |
+|---|---|
+| `/register-scale papers/<file>.pdf` | PDFから尺度を自動抽出して登録する |
+
+スキルの詳細は `.claude/skills/register-scale/SKILL.md` を参照。
+
+## 尺度登録のクイックリファレンス
+
+1. `papers/` にPDFを置く
+2. `/register-scale papers/<file>.pdf` を実行
+3. 確認後 `lib/scales/<id>.json` が生成され `lib/scales/index.ts` に追加される
+
+手動登録の詳細は `docs/scale-registration-guide.md` を参照。
+
+## 技術スタック
+
+- Next.js 15 (webpack) + TypeScript + Tailwind v4 + shadcn/ui
+- recharts（レーダーチャート）
+- html2canvas-pro + jsPDF（PDF出力、oklch対応）
+- Vercel hobby プランでデプロイ想定
+
+## 採点ロジック
+
+- 得点は**項目平均**（素点合計 ÷ 項目数）を使用
+- 逆転項目: `最小値 + 最大値 − 原点`
+- 偏差値: `T = 10 × (項目平均 − 規準M) / 規準SD + 50`
+- norm_mean/norm_sd は必ず**項目平均ベース**で登録する（素点合計ベースの場合は変換）
+
+## 開発コマンド
+
+```bash
+npm run dev    # 開発サーバー（localhost:3000）
+npm run build  # プロダクションビルド
+npx tsc --noEmit  # 型チェック
+```
