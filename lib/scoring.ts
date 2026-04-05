@@ -30,7 +30,20 @@ export function calculateScore(
     const raw = responses[item.id];
     if (raw === undefined) continue;
     const score = item.reverse ? reverseScore(raw, minVal, maxVal) : raw;
-    subscaleScores[item.subscale].push(score);
+    if (subscaleScores[item.subscale] !== undefined) {
+      subscaleScores[item.subscale].push(score);
+    }
+  }
+
+  // computed_from が指定された下位尺度: 子尺度の全スコアを集約
+  for (const sub of scale.subscales) {
+    if (sub.computed_from && sub.computed_from.length > 0) {
+      const merged: number[] = [];
+      for (const childId of sub.computed_from) {
+        merged.push(...(subscaleScores[childId] ?? []));
+      }
+      subscaleScores[sub.id] = merged;
+    }
   }
 
   const subscaleResults: SubscaleResult[] = scale.subscales.map((sub) => {
@@ -46,6 +59,7 @@ export function calculateScore(
     return {
       subscale_id: sub.id,
       subscale_name: sub.name,
+      group: sub.group,
       raw_score: rawSum,
       max_score: maxVal * scores.length,
       item_count: scores.length,

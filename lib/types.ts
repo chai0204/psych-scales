@@ -17,6 +17,8 @@ export interface Subscale {
   id: string;
   name: string;
   description?: string;
+  group?: string;           // 表示グループ（例: "domain", "facet"）
+  computed_from?: string[]; // 子下位尺度IDのリスト（これが指定された場合、子の全項目を集約してスコアを計算）
   // 元論文の規準値（偏差値計算に使用）
   norm_mean?: number;
   norm_sd?: number;
@@ -66,6 +68,7 @@ export interface Scale {
 export interface SubscaleResult {
   subscale_id: string;
   subscale_name: string;
+  group?: string;               // subscale.group をそのまま引き継ぐ
   raw_score: number;
   max_score: number;               // 満点（最大選択肢値 × 項目数）
   item_count: number;

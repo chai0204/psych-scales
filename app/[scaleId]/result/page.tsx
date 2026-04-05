@@ -73,6 +73,76 @@ function SubscaleCard({ sub }: { sub: SubscaleResult }) {
   );
 }
 
+// ---- Radar section (used both in UI and PrintTemplate) ----
+function RadarSection({
+  subs,
+  title,
+  fixedSize,
+}: {
+  subs: SubscaleResult[];
+  title: string;
+  fixedSize?: { width: number; height: number };
+}) {
+  const hasDeviation = subs.some((s) => s.deviation_score !== undefined);
+  const radarMin = hasDeviation ? 20 : 1;
+  const radarMax = hasDeviation ? 80 : Math.max(...subs.map((s) => s.max_score / s.item_count));
+  const radarData = subs.map((s) => ({
+    name: s.subscale_name,
+    value: s.deviation_score ?? s.mean_score,
+  }));
+
+  if (subs.length < 3) return null;
+
+  const chart = (
+    <RadarChart
+      width={fixedSize?.width ?? 500}
+      height={fixedSize?.height ?? 320}
+      data={radarData}
+      margin={{ top: 20, right: 40, bottom: 20, left: 40 }}
+    >
+      <PolarGrid stroke="#e5e7eb" />
+      <PolarAngleAxis dataKey="name" tick={{ fontSize: fixedSize ? 11 : 10 }} />
+      <PolarRadiusAxis
+        angle={90}
+        domain={[radarMin, radarMax]}
+        tick={{ fontSize: 9, fill: "#9ca3af" }}
+        tickCount={4}
+        stroke="#e5e7eb"
+      />
+      <Radar name="得点" dataKey="value" stroke="#3b82f6" fill="#3b82f6" fillOpacity={0.25} />
+      {!fixedSize && <Tooltip formatter={(v) => typeof v === "number" ? v.toFixed(1) : v} />}
+    </RadarChart>
+  );
+
+  if (fixedSize) {
+    // PrintTemplate用: 固定サイズ
+    return (
+      <div style={{ marginBottom: 24 }}>
+        <h2 style={{ fontSize: 13, fontWeight: "bold", marginBottom: 8, borderBottom: "1px solid #e5e7eb", paddingBottom: 4 }}>
+          {title}
+        </h2>
+        <div style={{ display: "flex", justifyContent: "center" }}>{chart}</div>
+      </div>
+    );
+  }
+
+  // UI用: ResponsiveContainer
+  return (
+    <div className="bg-white rounded-lg border border-gray-200 p-4 mb-4">
+      <h2 className="text-sm font-semibold text-gray-600 mb-3">{title}</h2>
+      <ResponsiveContainer width="100%" height={subs.length <= 5 ? 260 : 320}>
+        <RadarChart data={radarData} margin={{ top: 10, right: 30, bottom: 10, left: 30 }}>
+          <PolarGrid />
+          <PolarAngleAxis dataKey="name" tick={{ fontSize: subs.length <= 5 ? 12 : 9 }} />
+          <PolarRadiusAxis angle={90} domain={[radarMin, radarMax]} tick={{ fontSize: 9 }} tickCount={4} />
+          <Radar name="得点" dataKey="value" stroke="#3b82f6" fill="#3b82f6" fillOpacity={0.25} />
+          <Tooltip formatter={(v) => typeof v === "number" ? v.toFixed(1) : v} />
+        </RadarChart>
+      </ResponsiveContainer>
+    </div>
+  );
+}
+
 // ---- Hidden print template (inline styles only, no oklch) ----
 function PrintTemplate({
   scale, result, printRef,
@@ -81,13 +151,15 @@ function PrintTemplate({
   result: ScoreResult;
   printRef: React.RefObject<HTMLDivElement | null>;
 }) {
-  const hasDeviation = result.subscale_results.some((s) => s.deviation_score !== undefined);
-  const radarData = result.subscale_results.map((s) => ({
-    name: s.subscale_name,
-    value: s.deviation_score ?? s.mean_score,
-  }));
-  const radarMin = hasDeviation ? 20 : 1;
-  const radarMax = hasDeviation ? 80 : Math.max(...result.subscale_results.map((s) => s.max_score / s.item_count));
+  const enriched = result.subscale_results;
+  const hasDeviation = enriched.some((s) => s.deviation_score !== undefined);
+
+  // グループ別に分離
+  const groups = [...new Set(enriched.map((s) => s.group).filter(Boolean))] as string[];
+  const sortedGroups = [...groups].sort((a, b) => a === "domain" ? -1 : b === "domain" ? 1 : 0);
+  const hasGroups = sortedGroups.length > 0;
+  const groupLabels: Record<string, string> = { domain: "ドメイン偏差値プロファイル", facet: "ファセット偏差値プロファイル" };
+  const defaultLabel = hasDeviation ? "偏差値プロファイル" : "得点プロファイル";
 
   return (
     <div
@@ -104,27 +176,39 @@ function PrintTemplate({
         {scale.meta.source}　実施日: {new Date().toLocaleDateString("ja-JP")}
       </p>
 
-      {/* レーダーチャート（固定サイズ — ResponsiveContainer不使用でhtml2canvas対応） */}
-      {radarData.length >= 3 && (
-        <div style={{ marginBottom: 24 }}>
-          <h2 style={{ fontSize: 13, fontWeight: "bold", marginBottom: 8, borderBottom: "1px solid #e5e7eb", paddingBottom: 4 }}>
-            {hasDeviation ? "偏差値プロファイル" : "得点プロファイル"}
-          </h2>
-          <div style={{ display: "flex", justifyContent: "center" }}>
-            <RadarChart width={500} height={320} data={radarData} margin={{ top: 20, right: 40, bottom: 20, left: 40 }}>
-              <PolarGrid stroke="#e5e7eb" />
-              <PolarAngleAxis dataKey="name" tick={{ fontSize: 11, fill: "#374151" }} />
-              <PolarRadiusAxis
-                angle={90}
-                domain={[radarMin, radarMax]}
-                tick={{ fontSize: 9, fill: "#9ca3af" }}
-                tickCount={4}
-                stroke="#e5e7eb"
+      {hasGroups ? (
+        sortedGroups.map((group) => {
+          const groupSubs = enriched.filter((s) => s.group === group);
+          return (
+            <div key={group}>
+              <RadarSection
+                subs={groupSubs}
+                title={groupLabels[group] ?? group}
+                fixedSize={{ width: 500, height: group === "facet" ? 380 : 300 }}
               />
-              <Radar name="得点" dataKey="value" stroke="#3b82f6" fill="#3b82f6" fillOpacity={0.25} />
-            </RadarChart>
+              <h2 style={{ fontSize: 13, fontWeight: "bold", marginBottom: 10, borderBottom: "1px solid #e5e7eb", paddingBottom: 4 }}>
+                {group === "domain" ? "ドメイン得点" : "ファセット得点"}
+              </h2>
+              <div style={{ display: "flex", flexDirection: "column", gap: 8, marginBottom: 20 }}>
+                {groupSubs.map((sub) => (
+                  <SubscaleCard key={sub.subscale_id} sub={sub} />
+                ))}
+              </div>
+            </div>
+          );
+        })
+      ) : (
+        <>
+          <RadarSection subs={enriched} title={defaultLabel} fixedSize={{ width: 500, height: 320 }} />
+          <h2 style={{ fontSize: 13, fontWeight: "bold", marginBottom: 10, borderBottom: "1px solid #e5e7eb", paddingBottom: 4 }}>
+            下位尺度得点
+          </h2>
+          <div style={{ display: "flex", flexDirection: "column", gap: 10, marginBottom: 24 }}>
+            {enriched.map((sub) => (
+              <SubscaleCard key={sub.subscale_id} sub={sub} />
+            ))}
           </div>
-        </div>
+        </>
       )}
 
       {/* 採点方法 */}
@@ -140,16 +224,6 @@ function PrintTemplate({
             <p>・偏差値の解釈は正規分布を仮定（規準集団との相対比較）</p>
           </>
         )}
-      </div>
-
-      {/* 下位尺度 */}
-      <h2 style={{ fontSize: 13, fontWeight: "bold", marginBottom: 10, borderBottom: "1px solid #e5e7eb", paddingBottom: 4 }}>
-        下位尺度得点
-      </h2>
-      <div style={{ display: "flex", flexDirection: "column", gap: 10, marginBottom: 24 }}>
-        {result.subscale_results.map((sub) => (
-          <SubscaleCard key={sub.subscale_id} sub={sub} />
-        ))}
       </div>
 
       {/* クラスタ */}
@@ -205,7 +279,6 @@ export default function ResultPage({ params }: { params: Promise<{ scaleId: stri
     const imgW = pageW - 20;
     const imgH = (canvas.height * imgW) / canvas.width;
 
-    // 複数ページ対応
     const pageH = pdf.internal.pageSize.getHeight() - 20;
     if (imgH <= pageH) {
       pdf.addImage(imgData, "PNG", 10, 10, imgW, imgH);
@@ -233,6 +306,10 @@ export default function ResultPage({ params }: { params: Promise<{ scaleId: stri
   function handleExportMarkdown() {
     if (!result || !scale) return;
     const enriched = enrichResults(result.subscale_results, scale);
+    const groups = [...new Set(enriched.map((s) => s.group).filter(Boolean))] as string[];
+    const sortedGroups = [...groups].sort((a, b) => a === "domain" ? -1 : b === "domain" ? 1 : 0);
+    const hasGroups = sortedGroups.length > 0;
+
     const lines: string[] = [
       `# ${scale.meta.name} 結果`,
       ``,
@@ -244,18 +321,29 @@ export default function ResultPage({ params }: { params: Promise<{ scaleId: stri
       `- 得点は項目平均（素点合計 / 項目数）を使用`,
       `- 逆転項目は (最小値 + 最大値 − 原点) で変換`,
       `- 偏差値 T = 10 × (項目平均 − 規準M) / 規準SD + 50`,
-      `- 偏差値の解釈は正規分布を仮定（規準集団との相対比較）`,
       ``,
-      `## 下位尺度得点`,
-      ``,
-      `| 尺度 | 素点 / 満点 | 項目平均 | 偏差値 | 規準 M (SD) |`,
-      `|---|---|---|---|---|`,
-      ...enriched.map((s) =>
-        `| ${s.subscale_name} | ${s.raw_score} / ${s.max_score} | ${s.mean_score.toFixed(2)} | ${s.deviation_score?.toFixed(1) ?? "—"} | ${s.norm_mean !== undefined ? `${s.norm_mean} (${s.norm_sd})` : "—"} |`
-      ),
     ];
+
+    if (hasGroups) {
+      for (const group of sortedGroups) {
+        const groupSubs = enriched.filter((s) => s.group === group);
+        lines.push(`## ${group === "domain" ? "ドメイン得点" : "ファセット得点"}`, ``);
+        lines.push(`| 尺度 | 項目平均 | 偏差値 | 規準 M (SD) |`, `|---|---|---|---|`);
+        for (const s of groupSubs) {
+          lines.push(`| ${s.subscale_name} | ${s.mean_score.toFixed(2)} | ${s.deviation_score?.toFixed(1) ?? "—"} | ${s.norm_mean !== undefined ? `${s.norm_mean} (${s.norm_sd})` : "—"} |`);
+        }
+        lines.push(``);
+      }
+    } else {
+      lines.push(`## 下位尺度得点`, ``);
+      lines.push(`| 尺度 | 素点 / 満点 | 項目平均 | 偏差値 | 規準 M (SD) |`, `|---|---|---|---|---|`);
+      for (const s of enriched) {
+        lines.push(`| ${s.subscale_name} | ${s.raw_score} / ${s.max_score} | ${s.mean_score.toFixed(2)} | ${s.deviation_score?.toFixed(1) ?? "—"} | ${s.norm_mean !== undefined ? `${s.norm_mean} (${s.norm_sd})` : "—"} |`);
+      }
+    }
+
     if (result.cluster) {
-      lines.push(``, `## クラスタ判定`, ``, `**${result.cluster.name}**`);
+      lines.push(`## クラスタ判定`, ``, `**${result.cluster.name}**`);
       if (result.cluster.description) lines.push(``, result.cluster.description);
     }
     if (scale.meta.apa_citation) {
@@ -291,12 +379,16 @@ export default function ResultPage({ params }: { params: Promise<{ scaleId: stri
 
   const enriched = enrichResults(result.subscale_results, scale);
   const hasDeviation = enriched.some((s) => s.deviation_score !== undefined);
-  const radarMin = hasDeviation ? 20 : 1;
-  const radarMax = hasDeviation ? 80 : Math.max(...enriched.map((s) => s.max_score / s.item_count));
-  const radarData = enriched.map((s) => ({
-    name: s.subscale_name,
-    value: s.deviation_score ?? s.mean_score,
-  }));
+
+  // グループ分離
+  const groups = [...new Set(enriched.map((s) => s.group).filter(Boolean))] as string[];
+  const sortedGroups = [...groups].sort((a, b) => a === "domain" ? -1 : b === "domain" ? 1 : 0);
+  const hasGroups = sortedGroups.length > 0;
+  const groupLabels: Record<string, string> = {
+    domain: hasDeviation ? "ドメイン偏差値プロファイル" : "ドメイン得点プロファイル",
+    facet: hasDeviation ? "ファセット偏差値プロファイル" : "ファセット得点プロファイル",
+  };
+  const groupCardLabels: Record<string, string> = { domain: "ドメイン得点", facet: "ファセット得点" };
 
   return (
     <main className="min-h-screen bg-gray-50">
@@ -319,24 +411,6 @@ export default function ResultPage({ params }: { params: Promise<{ scaleId: stri
           {scale.meta.source}　・　{new Date().toLocaleDateString("ja-JP")} 実施
         </p>
 
-        {/* レーダーチャート */}
-        {enriched.length >= 3 && (
-          <div className="bg-white rounded-lg border border-gray-200 p-4 mb-6">
-            <h2 className="text-sm font-semibold text-gray-600 mb-3">
-              {hasDeviation ? "偏差値プロファイル" : "得点プロファイル"}
-            </h2>
-            <ResponsiveContainer width="100%" height={280}>
-              <RadarChart data={radarData} margin={{ top: 10, right: 30, bottom: 10, left: 30 }}>
-                <PolarGrid />
-                <PolarAngleAxis dataKey="name" tick={{ fontSize: 11 }} />
-                <PolarRadiusAxis angle={90} domain={[radarMin, radarMax]} tick={{ fontSize: 9 }} tickCount={4} />
-                <Radar name="得点" dataKey="value" stroke="#3b82f6" fill="#3b82f6" fillOpacity={0.25} />
-                <Tooltip formatter={(v) => typeof v === "number" ? v.toFixed(1) : v} />
-              </RadarChart>
-            </ResponsiveContainer>
-          </div>
-        )}
-
         {/* 偏差値凡例 */}
         {hasDeviation && (
           <div className="bg-gray-50 border border-gray-200 rounded-lg px-4 py-2.5 mb-4 text-xs text-gray-500 flex flex-wrap gap-4">
@@ -349,12 +423,41 @@ export default function ResultPage({ params }: { params: Promise<{ scaleId: stri
           </div>
         )}
 
-        {/* 下位尺度カード */}
-        <div className="space-y-3 mb-6">
-          {enriched.map((sub) => (
-            <SubscaleCard key={sub.subscale_id} sub={sub} />
-          ))}
-        </div>
+        {hasGroups ? (
+          sortedGroups.map((group) => {
+            const groupSubs = enriched.filter((s) => s.group === group);
+            return (
+              <div key={group} className="mb-6">
+                <RadarSection
+                  subs={groupSubs}
+                  title={groupLabels[group] ?? group}
+                />
+                <h2 className="text-sm font-semibold text-gray-600 mb-2 mt-4">
+                  {groupCardLabels[group] ?? group}
+                </h2>
+                <div className="space-y-2">
+                  {groupSubs.map((sub) => (
+                    <SubscaleCard key={sub.subscale_id} sub={sub} />
+                  ))}
+                </div>
+              </div>
+            );
+          })
+        ) : (
+          <>
+            {enriched.length >= 3 && (
+              <RadarSection
+                subs={enriched}
+                title={hasDeviation ? "偏差値プロファイル" : "得点プロファイル"}
+              />
+            )}
+            <div className="space-y-3 mb-6">
+              {enriched.map((sub) => (
+                <SubscaleCard key={sub.subscale_id} sub={sub} />
+              ))}
+            </div>
+          </>
+        )}
 
         {/* 統計的注記 */}
         <div className="bg-blue-50 border border-blue-100 rounded-lg px-4 py-3 mb-6 text-xs text-blue-700 space-y-1">
