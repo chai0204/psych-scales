@@ -5,10 +5,10 @@ import { useSearchParams } from "next/navigation";
 import { Suspense } from "react";
 
 const ERROR_MESSAGES: Record<string, string> = {
-  invalid: "リンクが無効です。",
-  revoked: "このリンクは無効化されています。",
-  expired: "リンクの有効期限が切れています。",
-  limit: "このリンクの使用回数上限に達しました。",
+  invalid: "このリンクは使用できません。",
+  revoked: "このリンクは使用できません。",
+  expired: "このリンクは使用できません。",
+  limit: "このリンクは使用できません。",
 };
 
 function AccessContent() {

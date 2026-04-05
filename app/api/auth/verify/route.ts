@@ -3,56 +3,48 @@ import { supabase } from "@/lib/supabase";
 import { signSession } from "@/lib/session";
 
 export async function GET(req: NextRequest) {
-  const tokenId = req.nextUrl.searchParams.get("token");
+  const tokenSecret = req.nextUrl.searchParams.get("token");
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL ?? "http://localhost:3000";
 
-  if (!tokenId) {
+  if (!tokenSecret) {
     return NextResponse.redirect(new URL("/access?error=invalid", req.url));
   }
 
-  const { data: token, error } = await supabase
-    .from("access_tokens")
-    .select("*")
-    .eq("id", tokenId)
-    .single();
-
-  if (error || !token) {
-    return NextResponse.redirect(new URL("/access?error=invalid", req.url));
-  }
-
-  if (token.revoked) {
-    return NextResponse.redirect(new URL("/access?error=revoked", req.url));
-  }
-
-  if (new Date(token.expires_at) < new Date()) {
-    return NextResponse.redirect(new URL("/access?error=expired", req.url));
-  }
-
-  if (token.use_count >= token.max_uses) {
-    return NextResponse.redirect(new URL("/access?error=limit", req.url));
-  }
-
-  // Vercel環境向けに信頼性の高いIPを取得（#7）
+  // Vercel環境向けに信頼性の高いIPを取得
   const ip =
     req.headers.get("x-real-ip") ??
     req.headers.get("x-vercel-forwarded-for") ??
     req.headers.get("x-forwarded-for")?.split(",").at(-1)?.trim() ??
     "unknown";
 
-  const newUses = [...(token.uses ?? []), { at: new Date().toISOString(), ip }];
-
-  await supabase
+  // #3: アトミックなRPCでTOCTOU競合を防止（検証・カウントアップを1トランザクションで）
+  // まず token_secret でトークンIDを取得
+  const { data: tokenRow, error: lookupError } = await supabase
     .from("access_tokens")
-    .update({ use_count: token.use_count + 1, uses: newUses })
-    .eq("id", tokenId);
+    .select("id")
+    .eq("token_secret", tokenSecret)
+    .single();
 
-  // JWT/cookie の有効期限をトークンの expires_at に合わせる（#4）
-  const expiresAt = new Date(token.expires_at);
-  const nowMs = Date.now();
-  const maxAgeSec = Math.max(0, Math.floor((expiresAt.getTime() - nowMs) / 1000));
-  const expiresInSec = `${maxAgeSec}s`;
+  if (lookupError || !tokenRow) {
+    return NextResponse.redirect(new URL("/access?error=invalid", req.url));
+  }
 
-  const session = await signSession({ role: "guest", tokenId }, expiresInSec);
+  const { data: result, error: rpcError } = await supabase
+    .rpc("consume_access_token", { p_token_id: tokenRow.id, p_ip: ip });
+
+  if (rpcError || !result) {
+    return NextResponse.redirect(new URL("/access?error=invalid", req.url));
+  }
+
+  if (!result.success) {
+    return NextResponse.redirect(new URL(`/access?error=${result.error}`, req.url));
+  }
+
+  // JWT/cookie の有効期限をトークンの expires_at に合わせる
+  const expiresAt = new Date(result.expires_at);
+  const maxAgeSec = Math.max(0, Math.floor((expiresAt.getTime() - Date.now()) / 1000));
+
+  const session = await signSession({ role: "guest", tokenId: tokenRow.id }, `${maxAgeSec}s`);
 
   const res = NextResponse.redirect(new URL("/", baseUrl));
   res.cookies.set("session", session, {
