@@ -259,7 +259,6 @@ export default function ResultPage({ params }: { params: Promise<{ scaleId: stri
 
   useEffect(() => {
     const stored = sessionStorage.getItem(`result_${scaleId}`);
-    // eslint-disable-next-line react-hooks/set-state-in-effect
     if (stored) setResult(JSON.parse(stored));
   }, [scaleId]);
 
