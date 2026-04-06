@@ -91,6 +91,7 @@ function IssueForm({ onIssued }: { onIssued: () => void }) {
   const [expiresInDays, setExpiresInDays] = useState(7);
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
+  const [accessUrl, setAccessUrl] = useState("");
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -102,13 +103,16 @@ function IssueForm({ onIssued }: { onIssued: () => void }) {
       body: JSON.stringify({ email, note, max_uses: maxUses, expires_in_days: expiresInDays }),
     });
     if (res.ok) {
-      setMessage(`${email} にメールを送信しました`);
+      const data = await res.json();
+      setAccessUrl(data.access_url);
+      setMessage(`発行しました。以下のリンクを ${email} に共有してください。`);
       setEmail("");
       setNote("");
       onIssued();
     } else {
       const d = await res.json();
       setMessage(`エラー: ${d.error}`);
+      setAccessUrl("");
     }
     setLoading(false);
   }
@@ -161,6 +165,27 @@ function IssueForm({ onIssued }: { onIssued: () => void }) {
           {loading ? "送信中..." : "発行してメールを送る"}
         </button>
         {message && <p style={{ fontSize: 13, color: "#6b7280" }}>{message}</p>}
+        {accessUrl && (
+          <div style={{ background: "#f0fdf4", border: "1px solid #86efac", borderRadius: 6, padding: 12 }}>
+            <div style={{ display: "flex", gap: 8, alignItems: "center" }}>
+              <input
+                readOnly
+                value={accessUrl}
+                style={{ ...inputStyle, flex: 1, fontSize: 12, background: "#fff" }}
+                onFocus={(e) => e.target.select()}
+              />
+              <button
+                type="button"
+                onClick={() => {
+                  navigator.clipboard.writeText(accessUrl);
+                }}
+                style={{ ...btnStyle("#10b981"), width: "auto", padding: "8px 16px", whiteSpace: "nowrap" }}
+              >
+                コピー
+              </button>
+            </div>
+          </div>
+        )}
       </form>
     </div>
   );
