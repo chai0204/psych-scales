@@ -61,17 +61,25 @@ export async function POST(req: NextRequest) {
     expires_in_days === 1 ? "1日" :
     expires_in_days === 7 ? "1週間" : "1ヶ月";
 
-  await transporter.sendMail({
-    from: `心理尺度サイト <${process.env.GMAIL_USER}>`,
-    to: email,
-    subject: "心理尺度サイトへのアクセスリンク",
-    html: `
-      <p>以下のリンクからアクセスしてください。</p>
-      <p><a href="${accessUrl}">${accessUrl}</a></p>
-      <p>有効期限: ${expiresLabel}（${max_uses ?? 3}回まで使用可能）</p>
-      <p style="color:#888;font-size:12px;">このメールに心当たりがない場合は無視してください。</p>
-    `,
-  });
+  try {
+    await transporter.sendMail({
+      from: `心理尺度サイト <${process.env.GMAIL_USER}>`,
+      to: email,
+      subject: "心理尺度サイトへのアクセスリンク",
+      html: `
+        <p>以下のリンクからアクセスしてください。</p>
+        <p><a href="${accessUrl}">${accessUrl}</a></p>
+        <p>有効期限: ${expiresLabel}（${max_uses ?? 3}回まで使用可能）</p>
+        <p style="color:#888;font-size:12px;">このメールに心当たりがない場合は無視してください。</p>
+      `,
+    });
+  } catch (mailError) {
+    console.error("[mail error]", mailError);
+    return NextResponse.json(
+      { error: "メール送信に失敗しました", detail: String(mailError) },
+      { status: 500 }
+    );
+  }
 
   return NextResponse.json(token);
 }
