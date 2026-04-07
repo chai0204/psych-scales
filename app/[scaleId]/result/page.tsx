@@ -490,16 +490,19 @@ export default function ResultPage({ params }: { params: Promise<{ scaleId: stri
           </>
         )}
 
-        {/* APA引用文献 */}
-        {scale.meta.apa_citation && (
-          <>
-            <Separator className="my-4" />
-            <div className="text-xs text-gray-400">
-              <p className="font-semibold mb-1">引用文献</p>
+        {/* APA引用文献・著作権 */}
+        <Separator className="my-4" />
+        <div className="text-xs text-gray-400 space-y-2">
+          {scale.meta.apa_citation && (
+            <>
+              <p className="font-semibold">引用文献</p>
               <p className="leading-relaxed">{scale.meta.apa_citation}</p>
-            </div>
-          </>
-        )}
+            </>
+          )}
+          <p className="leading-relaxed pt-1">
+            本尺度は上記文献に基づき実装されています。個人的な学習・研究目的での使用を想定しており、商業利用・無断転載はお控えください。回答データはブラウザ上でのみ処理され、サーバーには送信・保存されません。
+          </p>
+        </div>
 
         {/* 再回答 */}
         <div className="mt-8 text-center">

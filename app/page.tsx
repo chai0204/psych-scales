@@ -79,6 +79,23 @@ export default function HomePage() {
             ))}
           </div>
         )}
+
+        {/* 著作権表記 */}
+        <div className="mt-12 pt-6 border-t border-gray-200 text-xs text-gray-400 space-y-3">
+          <p className="text-gray-500 font-medium">著作権について</p>
+          <p className="leading-relaxed">
+            本サイトに掲載されている心理尺度は、各著者・研究者の著作物です。個人的な学習・研究目的での参照を想定しており、尺度の商業利用・無断転載はお控えください。回答データはブラウザ上でのみ処理され、サーバーには送信・保存されません。
+          </p>
+          <p className="text-gray-500 font-medium mt-4">使用尺度の出典</p>
+          <ul className="space-y-2">
+            {scales
+              .filter((s) => s.meta.apa_citation)
+              .filter((s, i, arr) => arr.findIndex((t) => t.meta.apa_citation === s.meta.apa_citation) === i)
+              .map((s) => (
+                <li key={s.meta.id} className="leading-relaxed">{s.meta.apa_citation}</li>
+              ))}
+          </ul>
+        </div>
       </div>
     </main>
   );
