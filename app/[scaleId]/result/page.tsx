@@ -411,9 +411,14 @@ export default function ResultPage({ params }: { params: Promise<{ scaleId: stri
 
         {/* タイトル */}
         <h1 className="text-2xl font-bold text-gray-900 mb-1">{scale.meta.name}</h1>
-        <p className="text-sm text-gray-400 mb-6">
+        <p className="text-sm text-gray-400 mb-4">
           {scale.meta.source}　・　{new Date().toLocaleDateString("ja-JP")} 実施
         </p>
+
+        {/* エクスポート推奨 */}
+        <div className="bg-blue-50 border border-blue-200 rounded-lg px-4 py-3 mb-4 text-xs text-blue-700">
+          結果はこのブラウザにのみ保存されており、ページを離れると失われます。右上の <strong>PDF</strong> または <strong>Markdown</strong> ボタンからエクスポートして保存することをお勧めします。
+        </div>
 
         {/* 偏差値凡例 */}
         {hasDeviation && (

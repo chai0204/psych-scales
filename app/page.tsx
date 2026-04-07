@@ -25,9 +25,12 @@ export default function HomePage() {
     <main className="min-h-screen bg-gray-50">
       <div className="max-w-3xl mx-auto px-4 py-12">
         <h1 className="text-3xl font-bold text-gray-900 mb-2">心理尺度</h1>
-        <p className="text-gray-500 mb-8 text-sm">
+        <p className="text-gray-500 mb-3 text-sm">
           尺度を選択して回答を開始してください。回答結果はこのブラウザ上でのみ計算され、サーバーには送信されません。
         </p>
+        <div className="bg-amber-50 border border-amber-200 rounded-lg px-4 py-3 mb-8 text-xs text-amber-700">
+          アクセスリンクには<strong>使用回数制限</strong>と<strong>有効期限</strong>が設定されています。上限到達または期限切れ後はアクセスできなくなります。結果は必ず回答後にエクスポートして保存してください。
+        </div>
 
         <Input
           placeholder="尺度名・タグで検索..."
