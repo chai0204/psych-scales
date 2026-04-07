@@ -353,7 +353,7 @@ export default function ResultPage({ params }: { params: Promise<{ scaleId: stri
     if (scale.meta.apa_citation) {
       lines.push(``, `## 引用文献`, ``, scale.meta.apa_citation);
     }
-    const blob = new Blob([lines.join("\n")], { type: "text/markdown" });
+    const blob = new Blob(["\uFEFF" + lines.join("\n")], { type: "text/markdown;charset=utf-8" });
     const url = URL.createObjectURL(blob);
     const a = document.createElement("a");
     a.href = url;
