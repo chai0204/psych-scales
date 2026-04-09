@@ -67,7 +67,18 @@ export default function SurveyPage({ params }: { params: Promise<{ scaleId: stri
           </div>
         )}
 
-        {/* 選択肢ラベルヘッダー（固定表示） */}
+        {/* 選択肢凡例（モバイル: 一覧表示） */}
+        <div className="sm:hidden bg-gray-50 border border-gray-200 rounded-lg px-3 py-2 mb-4 text-xs text-gray-500">
+          <span className="font-medium mr-2">選択肢：</span>
+          {scale.response_options.map((opt, i) => (
+            <span key={opt.value}>
+              <strong>{opt.value}</strong> = {opt.label}
+              {i < scale.response_options.length - 1 && <span className="mx-1.5 text-gray-300">|</span>}
+            </span>
+          ))}
+        </div>
+
+        {/* 選択肢ラベルヘッダー（デスクトップ: カラム固定表示） */}
         <div className="hidden sm:grid mb-4 text-xs text-gray-400 text-center"
           style={{ gridTemplateColumns: `1fr repeat(${scale.response_options.length}, 1fr)` }}>
           <div />
