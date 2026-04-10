@@ -1,0 +1,54 @@
+{
+  "meta": {
+    "id": "ecr-rs-partner",
+    "name": "アダルト・アタッチメント・スタイル尺度（配偶者・恋人）",
+    "short_name": "ECR-RS 恋人",
+    "description": "配偶者または恋人に対する愛着スタイル（回避・不安）を測定する尺度",
+    "source": "古村・村上・戸田 (2016)",
+    "apa_citation": "古村 健太郎・村上 達也・戸田 弘二. (2016). アダルト・アタッチメント・スタイル尺度（ECR-RS）日本語版の妥当性評価. 心理学研究, 87(3), 303–313. https://doi.org/10.4992/jjpsy.87.15208",
+    "doi": "10.4992/jjpsy.87.15208",
+    "target": "成人一般",
+    "language": "ja",
+    "tags": ["愛着", "アタッチメント", "対人関係", "恋愛"]
+  },
+  "instructions": "あなたの配偶者あるいは恋人を思い浮かべてください。以下の項目は、どの程度あてはまりますか。",
+  "response_options": [
+    { "value": 1, "label": "全くあてはまらない" },
+    { "value": 2, "label": "ほとんどあてはまらない" },
+    { "value": 3, "label": "あまりあてはまらない" },
+    { "value": 4, "label": "どちらともいえない" },
+    { "value": 5, "label": "ややあてはまる" },
+    { "value": 6, "label": "かなりあてはまる" },
+    { "value": 7, "label": "非常にあてはまる" }
+  ],
+  "items": [
+    { "id": 1, "text": "私は，その人に個人的なことを相談する", "subscale": "avoidance", "reverse": true },
+    { "id": 2, "text": "私は，たいていその人に自分の問題や心配事を話す", "subscale": "avoidance", "reverse": true },
+    { "id": 3, "text": "その人は，私にとって頼りやすい人だ", "subscale": "avoidance", "reverse": true },
+    { "id": 4, "text": "必要なときはその人に頼り助けてもらうことができる", "subscale": "avoidance", "reverse": true },
+    { "id": 5, "text": "自分が心の奥底で考えていることを知られたくない", "subscale": "avoidance", "reverse": false },
+    { "id": 6, "text": "私は，その人に心を開くことを心地よく感じない", "subscale": "avoidance", "reverse": false },
+    { "id": 7, "text": "私がその人を大切に思っているほど，その人は私のことを大切に思っていないのではと心配になる", "subscale": "anxiety", "reverse": false },
+    { "id": 8, "text": "その人が私のことを本当は大切に思っていないのかもしれないと，たびたび心配になる", "subscale": "anxiety", "reverse": false },
+    { "id": 9, "text": "私は，その人に見捨てられるのではないかと不安に思う", "subscale": "anxiety", "reverse": false }
+  ],
+  "subscales": [
+    {
+      "id": "avoidance",
+      "name": "回避",
+      "description": "配偶者・恋人との親密さを回避する傾向の程度",
+      "norm_mean": 2.65,
+      "norm_sd": 1.25,
+      "norm_source": "古村ら(2016) 研究1 インターネット調査 N=782"
+    },
+    {
+      "id": "anxiety",
+      "name": "不安",
+      "description": "配偶者・恋人に見捨てられることへの不安の程度",
+      "norm_mean": 3.04,
+      "norm_sd": 1.60,
+      "norm_source": "古村ら(2016) 研究1 インターネット調査 N=782"
+    }
+  ],
+  "notes": "原版: ECR-RS (Fraley et al., 2011)。対象特定的な愛着測定。回避1〜4は逆転項目。配偶者または恋人がいる回答者のみ対象。"
+}
