@@ -7,11 +7,15 @@ import type { Scale } from "../types";
 import bigFiveS from "./big-five-s.json";
 import bfi2jStudent from "./bfi-2-j-student.json";
 import bfi2jCommunity from "./bfi-2-j-community.json";
+import ecrGo from "./ecr-go.json";
+import bscsJ from "./bscs-j.json";
 
 const scaleList: Scale[] = [
   bigFiveS as Scale,
   bfi2jStudent as Scale,
   bfi2jCommunity as Scale,
+  ecrGo as Scale,
+  bscsJ as Scale,
 ];
 
 export function getAllScales(): Scale[] {

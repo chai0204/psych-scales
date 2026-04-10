@@ -1,0 +1,48 @@
+{
+  "meta": {
+    "id": "bscs-j",
+    "name": "セルフコントロール尺度短縮版",
+    "short_name": "BSCS-J",
+    "description": "思考・感情のコントロールや自律的な振る舞いの程度を測定する尺度（13項目版）",
+    "source": "尾崎・後藤・小林・沓澤 (2016)",
+    "apa_citation": "尾崎 由佳・後藤 崇志・小林 麻衣・沓澤 岳. (2016). セルフコントロール尺度短縮版の邦訳および信頼性・妥当性の検討. 心理学研究, 87(2), 144–154. https://doi.org/10.4992/jjpsy.87.14222",
+    "doi": "10.4992/jjpsy.87.14222",
+    "target": "大学生",
+    "language": "ja",
+    "tags": ["セルフコントロール", "自己制御", "自律性"]
+  },
+  "instructions": "以下の各文について、あなた自身にどのくらい当てはまるかを評定してください。",
+  "response_options": [
+    { "value": 1, "label": "全くあてはまらない" },
+    { "value": 2, "label": "あまりあてはまらない" },
+    { "value": 3, "label": "どちらともいえない" },
+    { "value": 4, "label": "ややあてはまる" },
+    { "value": 5, "label": "とてもあてはまる" }
+  ],
+  "items": [
+    { "id": 1, "text": "悪いクセをやめられない", "subscale": "self-control", "reverse": true },
+    { "id": 2, "text": "だらけてしまう", "subscale": "self-control", "reverse": true },
+    { "id": 3, "text": "場にそぐわないことを言ってしまう", "subscale": "self-control", "reverse": true },
+    { "id": 4, "text": "自分にとってよくないことでも、楽しければやってしまう", "subscale": "self-control", "reverse": true },
+    { "id": 5, "text": "自分にとってよくない誘いは、断る", "subscale": "self-control", "reverse": false },
+    { "id": 6, "text": "もっと自制心があればよいのにと思う", "subscale": "self-control", "reverse": true },
+    { "id": 7, "text": "誘惑に負けない", "subscale": "self-control", "reverse": false },
+    { "id": 8, "text": "自分に厳しい人だと言われる", "subscale": "self-control", "reverse": false },
+    { "id": 9, "text": "集中力がない", "subscale": "self-control", "reverse": true },
+    { "id": 10, "text": "先のことを考えて、計画的に行動する", "subscale": "self-control", "reverse": false },
+    { "id": 11, "text": "よくないことと知りつつ、やめられない時がある", "subscale": "self-control", "reverse": true },
+    { "id": 12, "text": "他にどういう方法があるか、よく考えずに行動してしまう", "subscale": "self-control", "reverse": true },
+    { "id": 13, "text": "趣味や娯楽のせいで、やるべきことがそっちのけになることがある", "subscale": "self-control", "reverse": true }
+  ],
+  "subscales": [
+    {
+      "id": "self-control",
+      "name": "セルフコントロール",
+      "description": "思考・感情をコントロールし自律的に振る舞う能力の程度。高得点ほどセルフコントロールが高い",
+      "norm_mean": 2.76,
+      "norm_sd": 0.55,
+      "norm_source": "尾崎ら(2016) 大学生 N=259（総得点M=35.91, SD=7.09を項目平均に換算）"
+    }
+  ],
+  "notes": "原版: Brief Self-Control Scale (Tangney et al., 2004)。1因子構造。反転項目9つ（項目1,2,3,4,6,9,11,12,13）。一般成人規準もあり（項目平均 M=3.09, SD=0.62, N=290）。"
+}

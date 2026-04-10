@@ -1,0 +1,75 @@
+{
+  "meta": {
+    "id": "ecr-go",
+    "name": "\"一般他者\"を想定した愛着スタイル尺度",
+    "short_name": "ECR-GO",
+    "description": "一般的な対人関係における愛着スタイル（見捨てられ不安・親密性の回避）を測定する尺度（30項目版）",
+    "source": "中尾・加藤 (2004)",
+    "apa_citation": "中尾 達馬・加藤 和生. (2004). \"一般他者\"を想定した愛着スタイル尺度の信頼性と妥当性の検討. 九州大学心理学研究, 5, 19–27. https://doi.org/10.15017/3567",
+    "doi": "10.15017/3567",
+    "target": "大学生",
+    "language": "ja",
+    "tags": ["愛着", "アタッチメント", "対人関係"]
+  },
+  "instructions": "以下には、いろいろな人が対人関係の中でどのような気持ちを持つかについての文があげてあります。それぞれの文は、「あなたが普通の対人関係の中で一般的に体験している気持ちや感じ方」に、どのくらいよく当てはまりますか。現在の対人関係での経験だけでなく、いろいろな対人関係の中であなたが普通によく体験していることを思い浮かべながら評定してください。",
+  "response_options": [
+    { "value": 1, "label": "全く当てはまらない" },
+    { "value": 2, "label": "ほとんど当てはまらない" },
+    { "value": 3, "label": "あまり当てはまらない" },
+    { "value": 4, "label": "どちらともいえない" },
+    { "value": 5, "label": "やや当てはまる" },
+    { "value": 6, "label": "かなり当てはまる" },
+    { "value": 7, "label": "非常によく当てはまる" }
+  ],
+  "items": [
+    { "id": 1, "text": "心の奥底で何を感じているかを人にみせるのはどちらかというと好きではない。", "subscale": "avoidance", "reverse": false },
+    { "id": 2, "text": "私は、見捨てられるのではないかと心配だ。", "subscale": "anxiety", "reverse": false },
+    { "id": 3, "text": "私は、人と親密になることがとてもここちよい。", "subscale": "avoidance", "reverse": true },
+    { "id": 4, "text": "私は、いろいろな人との関係について、非常に心配している。", "subscale": "anxiety", "reverse": false },
+    { "id": 5, "text": "私が人のことを大切に思うほどには、人が私のことを大切に思ってないのではないかと私は心配する。", "subscale": "anxiety", "reverse": false },
+    { "id": 6, "text": "私は、知り合いを失うのではないかとけっこう心配している。", "subscale": "anxiety", "reverse": false },
+    { "id": 7, "text": "私は人に心を開くのに抵抗を感じる。", "subscale": "avoidance", "reverse": false },
+    { "id": 8, "text": "私はいつも、人が私に対していだいていてくれる気持ちが、私が人に対していだいている気持ちと同じくらい強ければいいのになあと思う。", "subscale": "anxiety", "reverse": false },
+    { "id": 9, "text": "私があまりにも気持ちの上で完全に一つになることを求めるがために、ときどき人はうんざりして私から離れていってしまう。", "subscale": "anxiety", "reverse": false },
+    { "id": 10, "text": "私は一人ぼっちになってしまうのではないかと心配する。", "subscale": "anxiety", "reverse": false },
+    { "id": 11, "text": "私は、心の奥底にある考えや気持ちを人に話すことに抵抗がない。", "subscale": "avoidance", "reverse": true },
+    { "id": 12, "text": "私が人ととても親密になりたいと強く望むがために、ときどき人はうんざりして私から離れていってしまう。", "subscale": "anxiety", "reverse": false },
+    { "id": 13, "text": "私は人とあまり親密にならないようにしている。", "subscale": "avoidance", "reverse": false },
+    { "id": 14, "text": "私には、人が私に対して好意的であるということを何度も何度も言ってくれることが必要だ。", "subscale": "anxiety", "reverse": false },
+    { "id": 15, "text": "私は比較的容易に人と親密になれると思う。", "subscale": "avoidance", "reverse": true },
+    { "id": 16, "text": "私は、人にもっと自分の感情や自分たちの関係に真剣であることを示させようとしているのを感じることがときどきある。", "subscale": "anxiety", "reverse": false },
+    { "id": 17, "text": "私は、自分が人に依存することをゆるすことがなかなかできないと思う。", "subscale": "avoidance", "reverse": false },
+    { "id": 18, "text": "私は、（知り合いに）見捨てられるのではないかと心配になることはほとんどない。", "subscale": "anxiety", "reverse": true },
+    { "id": 19, "text": "私は人とあまりに親密になることがどちらかというと好きではない。", "subscale": "avoidance", "reverse": false },
+    { "id": 20, "text": "私は人に自分のことを好きになってもらうことができなかったら、私はきっと気が動転して、悲しくなったり腹が立ったりする。", "subscale": "anxiety", "reverse": false },
+    { "id": 21, "text": "私は、人に何でも話す。", "subscale": "avoidance", "reverse": true },
+    { "id": 22, "text": "私が親密になりたいと望むほどには、人は私と親密になりたいと思っていないと私は思う。", "subscale": "anxiety", "reverse": false },
+    { "id": 23, "text": "私はたいてい、人と自分の問題や心配ごとを話し合う。", "subscale": "avoidance", "reverse": true },
+    { "id": 24, "text": "私は誰かとつき合っていないと、何となく不安で不安定な気持ちになる。", "subscale": "anxiety", "reverse": false },
+    { "id": 25, "text": "私は人に頼ることに抵抗がない。", "subscale": "avoidance", "reverse": true },
+    { "id": 26, "text": "私は、私がいてほしいと望むぐらいに人がそばにいてくれないと、イライラしてしまう。", "subscale": "anxiety", "reverse": false },
+    { "id": 27, "text": "私は、人になぐさめやアドバイス、助けを求めることに抵抗がない。", "subscale": "avoidance", "reverse": true },
+    { "id": 28, "text": "私は、人が必要なときにいつでも私のためにいてくれないとイライラする。", "subscale": "anxiety", "reverse": false },
+    { "id": 29, "text": "人にダメだなあと言われると、自分は本当にダメだなあと感じる。", "subscale": "anxiety", "reverse": false },
+    { "id": 30, "text": "私は、知り合いが私のことをほっといて自分一人で何かをすることが重なってくると腹が立ってきてしまう。", "subscale": "anxiety", "reverse": false }
+  ],
+  "subscales": [
+    {
+      "id": "anxiety",
+      "name": "見捨てられ不安",
+      "description": "他者に見捨てられることへの不安や心配の程度",
+      "norm_mean": 3.78,
+      "norm_sd": 0.99,
+      "norm_source": "中尾・加藤(2004) 大学生 N=356"
+    },
+    {
+      "id": "avoidance",
+      "name": "親密性の回避",
+      "description": "他者との親密さを回避する傾向の程度",
+      "norm_mean": 3.61,
+      "norm_sd": 0.95,
+      "norm_source": "中尾・加藤(2004) 大学生 N=356"
+    }
+  ],
+  "notes": "ECR（Brennan et al., 1998）の日本語版を一般他者版に改変した尺度。原版36項目のうち因子分析で採用された30項目を使用。F1=見捨てられ不安（18項目）、F2=親密性の回避（12項目）。"
+}
