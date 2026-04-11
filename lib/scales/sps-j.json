@@ -1,0 +1,95 @@
+{
+  "meta": {
+    "id": "sps-j",
+    "name": "主観的生産性尺度",
+    "short_name": "主観的生産性",
+    "description": "就業者個人の主観的な生産性の高さを多側面から測定する尺度（38項目・5因子）",
+    "source": "市川・鈴木・谷沢・秋冨 (2024)",
+    "apa_citation": "市川 玲子・鈴木 美穂・谷沢 典子・秋冨 穣 (2024). 就業者個人の生産性の高さを測定する尺度の開発. 心理学研究, 95(4), 232–241. https://doi.org/10.4992/jjpsy.95.22225",
+    "doi": "10.4992/jjpsy.95.22225",
+    "target": "就業者（20〜59歳）",
+    "language": "ja",
+    "tags": ["生産性", "仕事", "ワークライフバランス", "ウェルビーイング", "経済"]
+  },
+  "instructions": "ここ1ヵ月間のあなたの状態について、それぞれあてはまる選択肢を一つずつ選んでください。",
+  "response_options": [
+    { "value": 1, "label": "まったくあてはまらない" },
+    { "value": 2, "label": "あまりあてはまらない" },
+    { "value": 3, "label": "どちらともいえない" },
+    { "value": 4, "label": "すこしあてはまる" },
+    { "value": 5, "label": "とてもあてはまる" }
+  ],
+  "items": [
+    { "id": 1, "text": "一定時間内により多くの仕事をこなすことができる", "subscale": "work-performance", "reverse": false },
+    { "id": 2, "text": "仕事を効率よくこなすことができている", "subscale": "work-performance", "reverse": false },
+    { "id": 3, "text": "仕事のパフォーマンスが高い", "subscale": "work-performance", "reverse": false },
+    { "id": 4, "text": "要領よく仕事をこなしている", "subscale": "work-performance", "reverse": false },
+    { "id": 5, "text": "難易度の高い業務もこなすことができている", "subscale": "work-performance", "reverse": false },
+    { "id": 6, "text": "仕事を丁寧にこなせている", "subscale": "work-performance", "reverse": false },
+    { "id": 7, "text": "自分の仕事の出来に満足できている", "subscale": "work-performance", "reverse": false },
+    { "id": 8, "text": "仕事に集中できている", "subscale": "work-performance", "reverse": false },
+    { "id": 9, "text": "メリハリをつけて仕事をすることができる", "subscale": "work-performance", "reverse": false },
+    { "id": 10, "text": "計画的かつ余裕のあるスケジュールで業務を進めることができている", "subscale": "work-performance", "reverse": false },
+    { "id": 11, "text": "プライベートが充実している", "subscale": "private-fulfillment", "reverse": false },
+    { "id": 12, "text": "プライベートでやりたいことに没頭できている", "subscale": "private-fulfillment", "reverse": false },
+    { "id": 13, "text": "プライベートの付き合いが充実している", "subscale": "private-fulfillment", "reverse": false },
+    { "id": 14, "text": "プライベートの活動に積極的である", "subscale": "private-fulfillment", "reverse": false },
+    { "id": 15, "text": "プライベートの時間を多く持てている", "subscale": "private-fulfillment", "reverse": false },
+    { "id": 16, "text": "家族や友人と過ごす時間を十分に持てている", "subscale": "private-fulfillment", "reverse": false },
+    { "id": 17, "text": "仕事とプライベートのバランスがとれている", "subscale": "private-fulfillment", "reverse": false },
+    { "id": 18, "text": "プライベートに問題がない", "subscale": "private-fulfillment", "reverse": false },
+    { "id": 19, "text": "幸福感が高い", "subscale": "private-fulfillment", "reverse": false },
+    { "id": 20, "text": "十分な休息をとる余裕がない", "subscale": "lack-of-leeway", "reverse": false },
+    { "id": 21, "text": "疲労がたまりやすく、休息を必要とする日が多い", "subscale": "lack-of-leeway", "reverse": false },
+    { "id": 22, "text": "心理的に負荷が高く、ストレスが多い", "subscale": "lack-of-leeway", "reverse": false },
+    { "id": 23, "text": "自分の健康に気が回らない", "subscale": "lack-of-leeway", "reverse": false },
+    { "id": 24, "text": "常に緊張している", "subscale": "lack-of-leeway", "reverse": false },
+    { "id": 25, "text": "仕事が忙しく、プライベートに支障が出ている", "subscale": "lack-of-leeway", "reverse": false },
+    { "id": 26, "text": "頭が混乱し、考えがまとまらない", "subscale": "lack-of-leeway", "reverse": false },
+    { "id": 27, "text": "眠りが浅いなど、睡眠に問題がある", "subscale": "lack-of-leeway", "reverse": false },
+    { "id": 28, "text": "身体に何らかの不調が生じている", "subscale": "lack-of-leeway", "reverse": false },
+    { "id": 29, "text": "金銭的・経済的に余裕がある", "subscale": "financial-satisfaction", "reverse": false },
+    { "id": 30, "text": "金銭的・経済的に余裕がない", "subscale": "financial-satisfaction", "reverse": true },
+    { "id": 31, "text": "自由に使えるお金が十分にある", "subscale": "financial-satisfaction", "reverse": false },
+    { "id": 32, "text": "収入と支出のバランスが取れている", "subscale": "financial-satisfaction", "reverse": false },
+    { "id": 33, "text": "貯蓄の管理ができている", "subscale": "financial-satisfaction", "reverse": false },
+    { "id": 34, "text": "仕事仲間と協力・団結できている", "subscale": "coworker-relations", "reverse": false },
+    { "id": 35, "text": "仕事仲間とのコミュニケーションを多くとれている", "subscale": "coworker-relations", "reverse": false },
+    { "id": 36, "text": "仕事仲間との関係が希薄である", "subscale": "coworker-relations", "reverse": true },
+    { "id": 37, "text": "仕事仲間に積極的に関わろうとしている", "subscale": "coworker-relations", "reverse": false },
+    { "id": 38, "text": "仕事仲間と互いに信頼し合っている", "subscale": "coworker-relations", "reverse": false }
+  ],
+  "subscales": [
+    {
+      "id": "work-performance",
+      "name": "仕事のパフォーマンス",
+      "description": "労働遂行能力に関する自己評価。高得点ほど仕事のパフォーマンスが高いと自覚している",
+      "norm_source": "規準値はJ-STAGE電子付録に掲載（本論文PDFには未記載）"
+    },
+    {
+      "id": "private-fulfillment",
+      "name": "プライベートの充実感",
+      "description": "プライベートにおける充実感やワークライフバランス。高得点ほど私生活が充実している",
+      "norm_source": "規準値はJ-STAGE電子付録に掲載（本論文PDFには未記載）"
+    },
+    {
+      "id": "lack-of-leeway",
+      "name": "余裕のなさ",
+      "description": "多忙さ・心身の不健康さ・プライベートへの支障。高得点ほど余裕がなく疲弊状態にある。注意：他の下位尺度と負の相関を示す",
+      "norm_source": "規準値はJ-STAGE電子付録に掲載（本論文PDFには未記載）"
+    },
+    {
+      "id": "financial-satisfaction",
+      "name": "経済的満足",
+      "description": "経済面における良好さ。高得点ほど経済的に満足している",
+      "norm_source": "規準値はJ-STAGE電子付録に掲載（本論文PDFには未記載）"
+    },
+    {
+      "id": "coworker-relations",
+      "name": "仕事仲間との関係の良さ",
+      "description": "仕事仲間との関係の良好さ。高得点ほど職場の人間関係が良好",
+      "norm_source": "規準値はJ-STAGE電子付録に掲載（本論文PDFには未記載）"
+    }
+  ],
+  "notes": "逆転項目: 30, 36。各下位尺度の項目平均値をスコアとして使用。「余裕のなさ」因子は他の因子と負の相関を示すため、合計得点ではなく各下位尺度を個別にプロフィール化して解釈すること。規準値（M, SD）はJ-STAGE電子付録にのみ掲載されており、本アプリでは偏差値を算出できない。"
+}

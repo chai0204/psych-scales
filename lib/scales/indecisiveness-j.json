@@ -1,0 +1,75 @@
+{
+  "meta": {
+    "id": "indecisiveness-j",
+    "name": "優柔不断尺度",
+    "short_name": "優柔不断",
+    "description": "日常的な意思決定場面における優柔不断傾向を測定する尺度（16項目・4因子）",
+    "source": "斎藤・緑川 (2016)",
+    "apa_citation": "斎藤 聖子・緑川 晶 (2016). 優柔不断尺度の作成と信頼性および妥当性の検討. 心理学研究, 87(5), 535–545. https://doi.org/10.4992/jjpsy.87.15227",
+    "doi": "10.4992/jjpsy.87.15227",
+    "target": "大学生",
+    "language": "ja",
+    "tags": ["優柔不断", "意思決定", "決断", "先延ばし", "不安"]
+  },
+  "instructions": "次の文章について、あなた自身にどの程度あてはまるかをお尋ねします。以下の質問に対する回答として、もっとも適切だと思うものをお選びください。",
+  "response_options": [
+    { "value": 1, "label": "まったくあてはまらない" },
+    { "value": 2, "label": "あまりあてはまらない" },
+    { "value": 3, "label": "どちらとも言えない" },
+    { "value": 4, "label": "ややあてはまる" },
+    { "value": 5, "label": "非常にあてはまる" }
+  ],
+  "items": [
+    { "id": 1, "text": "何かを決めるときには、かなりあれこれ迷うほうだ", "subscale": "deliberation", "reverse": false },
+    { "id": 2, "text": "決断した後、その決断に後悔しない", "subscale": "anxiety", "reverse": true },
+    { "id": 3, "text": "他の人が何を選ぶのか気になる", "subscale": "other-reference", "reverse": false },
+    { "id": 4, "text": "いいなと思うものがあったら、他の選択肢はあまり見ない", "subscale": "deliberation", "reverse": true },
+    { "id": 5, "text": "何かを決めるとき、人の意見を聞こうとする", "subscale": "other-reference", "reverse": false },
+    { "id": 6, "text": "どうしても決断が必要になるまで決断しない", "subscale": "procrastination", "reverse": false },
+    { "id": 7, "text": "予定を決めるとき、締め切り間際まで決断しない", "subscale": "procrastination", "reverse": false },
+    { "id": 8, "text": "決断をするとき、自信を持って選ぶことができる", "subscale": "anxiety", "reverse": true },
+    { "id": 9, "text": "重要なことを決めるとき、些細な問題にこだわり多くの時間を費やす", "subscale": "deliberation", "reverse": false },
+    { "id": 10, "text": "自分が選んだものが他の人と違うと不安になる", "subscale": "other-reference", "reverse": false },
+    { "id": 11, "text": "決断を先送りにしようとする", "subscale": "procrastination", "reverse": false },
+    { "id": 12, "text": "何かを選ぶときは些細なことは気にしない", "subscale": "deliberation", "reverse": true },
+    { "id": 13, "text": "何かを決めるとき、人の意見に左右されない", "subscale": "other-reference", "reverse": true },
+    { "id": 14, "text": "重要な問題は、直前まで決定を延ばす", "subscale": "procrastination", "reverse": false },
+    { "id": 15, "text": "些細なことを決めるのでも、自分はとても時間がかかる", "subscale": "deliberation", "reverse": false },
+    { "id": 16, "text": "決めたあとで、間違ってしまったと思うことがよくある", "subscale": "anxiety", "reverse": false }
+  ],
+  "subscales": [
+    {
+      "id": "deliberation",
+      "name": "熟慮",
+      "description": "決定場面であれこれ迷い、些細なことにこだわって多くの時間をかける傾向。高得点ほど決断に時間がかかる",
+      "norm_mean": 3.12,
+      "norm_sd": 0.81,
+      "norm_source": "斎藤・緑川(2016) 大学生 N=225（総得点M=15.60, SD=4.07を5項目で割った項目平均）"
+    },
+    {
+      "id": "procrastination",
+      "name": "先延ばし",
+      "description": "決断を先送りにし、締め切り間際まで決定を延ばす傾向。高得点ほど先延ばし傾向が強い",
+      "norm_mean": 3.30,
+      "norm_sd": 0.88,
+      "norm_source": "斎藤・緑川(2016) 大学生 N=225（総得点M=13.21, SD=3.53を4項目で割った項目平均）"
+    },
+    {
+      "id": "other-reference",
+      "name": "他者参照",
+      "description": "他者の選択を気にし、人の意見に左右される傾向。高得点ほど他者の影響を受けやすい",
+      "norm_mean": 3.60,
+      "norm_sd": 0.86,
+      "norm_source": "斎藤・緑川(2016) 大学生 N=225（総得点M=14.40, SD=3.45を4項目で割った項目平均）"
+    },
+    {
+      "id": "anxiety",
+      "name": "不安",
+      "description": "決断後に後悔したり、間違いを恐れたりする傾向。高得点ほど決断に伴う不安が強い",
+      "norm_mean": 3.09,
+      "norm_sd": 0.85,
+      "norm_source": "斎藤・緑川(2016) 大学生 N=225（総得点M=9.27, SD=2.56を3項目で割った項目平均）"
+    }
+  ],
+  "notes": "逆転項目: 2, 4, 8, 12, 13。高得点ほど優柔不断傾向が高い。日本文化特有の「他者参照」因子を含む4因子構造。"
+}

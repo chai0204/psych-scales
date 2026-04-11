@@ -1,0 +1,64 @@
+{
+  "meta": {
+    "id": "grit-j",
+    "name": "日本語版グリット尺度",
+    "short_name": "グリット",
+    "description": "長期目標に対する情熱と粘り強さ（グリット）を測定する尺度（12項目・2因子）",
+    "source": "竹橋・樋口・尾崎・渡辺・豊沢 (2019)",
+    "apa_citation": "竹橋 洋毅・樋口 収・尾崎 由佳・渡辺 匠・豊沢 純子 (2019). 日本語版グリット尺度の作成および信頼性・妥当性の検討. 心理学研究, 89(6), 580–590. https://doi.org/10.4992/jjpsy.89.17220",
+    "doi": "10.4992/jjpsy.89.17220",
+    "target": "大学生・成人",
+    "language": "ja",
+    "tags": ["グリット", "粘り強さ", "忍耐", "興味の一貫性", "目標達成", "自己制御"]
+  },
+  "instructions": "以下にいくつかの文章が並んでいます。回答する時にはあなたが世の中の多数の人々と比べてどのようであるかについて考えてください。回答に正解や間違いはありませんので、思った通り正直に回答してください。",
+  "response_options": [
+    { "value": 1, "label": "全く当てはまらない" },
+    { "value": 2, "label": "あまり当てはまらない" },
+    { "value": 3, "label": "少し当てはまる" },
+    { "value": 4, "label": "かなり当てはまる" },
+    { "value": 5, "label": "非常に当てはまる" }
+  ],
+  "items": [
+    { "id": 1, "text": "重要な試練に打ち勝つため、困難を乗り越えてきた。", "subscale": "perseverance", "reverse": false },
+    { "id": 2, "text": "新しいアイディアや計画によって、それまで取り組んでいたことから注意がそれることがある。", "subscale": "consistency", "reverse": true },
+    { "id": 3, "text": "私の興味は年々変わる。", "subscale": "consistency", "reverse": true },
+    { "id": 4, "text": "困難があっても、私はやる気を失わない。", "subscale": "perseverance", "reverse": false },
+    { "id": 5, "text": "あるアイディアや計画に一時的に夢中になっても、あとで興味を失うことがある。", "subscale": "consistency", "reverse": true },
+    { "id": 6, "text": "私は頑張り屋だ。", "subscale": "perseverance", "reverse": false },
+    { "id": 7, "text": "目標を決めても、後から変えてしまうことがよくある。", "subscale": "consistency", "reverse": true },
+    { "id": 8, "text": "数ヶ月以上かかるような計画に集中して取り組み続けることは難しい。", "subscale": "consistency", "reverse": true },
+    { "id": 9, "text": "始めたことは、どんなことでも最後までやりとげる。", "subscale": "perseverance", "reverse": false },
+    { "id": 10, "text": "数年にわたる努力を要する目標を達成したことがある。", "subscale": "perseverance", "reverse": false },
+    { "id": 11, "text": "数か月ごとに新しい活動への興味がわいてくる。", "subscale": "consistency", "reverse": true },
+    { "id": 12, "text": "私は精魂傾けてものごとに取り組む。", "subscale": "perseverance", "reverse": false }
+  ],
+  "subscales": [
+    {
+      "id": "grit-total",
+      "name": "グリット（総合）",
+      "computed_from": ["consistency", "perseverance"],
+      "description": "長期目標に対する情熱と粘り強さの総合指標。高得点ほどグリットが高い",
+      "norm_mean": 2.86,
+      "norm_sd": 0.51,
+      "norm_source": "竹橋ら(2019) 大学生 N=145（原論文M=3.14, SD=0.51を回答方向変換後に算出: 6-3.14=2.86）"
+    },
+    {
+      "id": "consistency",
+      "name": "興味の一貫性",
+      "description": "同じ目標に長期間にわたり興味と努力を持続する傾向。高得点ほど興味が一貫している",
+      "norm_mean": 3.13,
+      "norm_sd": 0.74,
+      "norm_source": "竹橋ら(2019) 大学生 N=145（逆転処理後の項目平均: 原論文の生得点M=3.13がそのまま逆転後の値に対応）"
+    },
+    {
+      "id": "perseverance",
+      "name": "努力の粘り強さ",
+      "description": "困難に直面しても諦めずに努力し続ける傾向。高得点ほど粘り強い",
+      "norm_mean": 2.84,
+      "norm_sd": 0.63,
+      "norm_source": "竹橋ら(2019) 大学生 N=145（原論文M=3.16, SD=0.63を回答方向変換後に算出: 6-3.16=2.84）"
+    }
+  ],
+  "notes": "原版: Duckworth et al. (2007) Grit Scale。原論文では回答選択肢が逆方向（1=非常に当てはまる〜5=全く当てはまらない）だが、本アプリでは一般的な方向（1=全く当てはまらない〜5=非常に当てはまる）に変換し、規準値もそれに合わせて変換済み。興味の一貫性の全6項目が逆転項目。高得点ほどグリットが高い。"
+}

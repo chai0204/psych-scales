@@ -1,0 +1,187 @@
+{
+  "meta": {
+    "id": "bfi-2-s-j",
+    "name": "BFI-2-S-J（短縮版30項目）",
+    "short_name": "BFI-2-S-J",
+    "description": "Big Five Inventory-2の日本語版短縮版。5つのドメイン（外向性・協調性・勤勉性・否定的情動性・開放性）と各3ファセットを30項目で測定する",
+    "source": "Yoshino et al. (2026)",
+    "apa_citation": "Yoshino, S., Shimotsukasa, T., Hashimoto, Y., Ueno, Y., Mieda, T., & Oshio, A. (2026). 日本語版 Big Five Inventory-2 の短縮版の検討. 心理学研究, 96(6), 406–416. https://doi.org/10.4992/jjpsy.96.24214",
+    "doi": "10.4992/jjpsy.96.24214",
+    "target": "成人一般",
+    "language": "ja",
+    "tags": ["パーソナリティ", "ビッグファイブ", "外向性", "協調性", "勤勉性", "神経症傾向", "開放性", "BFI-2", "短縮版"]
+  },
+  "instructions": "以下の項目についてあなたにどの程度あてはまるか、最も近いと思う数字を選んでください。私は...",
+  "response_options": [
+    { "value": 1, "label": "全くあてはまらない" },
+    { "value": 2, "label": "あてはまらない" },
+    { "value": 3, "label": "どちらともいえない" },
+    { "value": 4, "label": "あてはまる" },
+    { "value": 5, "label": "とてもよくあてはまる" }
+  ],
+  "items": [
+    { "id": 1, "text": "無口な方だ。", "subscale": "sociability", "reverse": true },
+    { "id": 2, "text": "思いやりがあり、優しい。", "subscale": "compassion", "reverse": false },
+    { "id": 3, "text": "行き当たりばったりな方だ。", "subscale": "organization", "reverse": true },
+    { "id": 4, "text": "多くの悩みごとを抱えている。", "subscale": "anxiety", "reverse": false },
+    { "id": 5, "text": "芸術、音楽、文学に魅了されている。", "subscale": "aesthetic-sensitivity", "reverse": false },
+    { "id": 6, "text": "上に立つ方で、リーダーとして活動する。", "subscale": "assertiveness", "reverse": false },
+    { "id": 7, "text": "他人を見下すことがある。", "subscale": "respectfulness", "reverse": true },
+    { "id": 8, "text": "なかなか作業に取り掛かることができない。", "subscale": "productiveness", "reverse": true },
+    { "id": 9, "text": "憂うつになり、落胆する方だ。", "subscale": "depression", "reverse": false },
+    { "id": 10, "text": "抽象的な知識にはほとんど関心がない。", "subscale": "intellectual-curiosity", "reverse": true },
+    { "id": 11, "text": "活力にあふれている。", "subscale": "energy-level", "reverse": false },
+    { "id": 12, "text": "人々のいちばん良いところを思い浮かべる。", "subscale": "trust", "reverse": false },
+    { "id": 13, "text": "ちゃんとしていて、いつも周りから当てにされる。", "subscale": "responsibility", "reverse": false },
+    { "id": 14, "text": "情緒が安定しており、簡単には取り乱さない。", "subscale": "emotional-volatility", "reverse": true },
+    { "id": 15, "text": "個性的で、新しいアイディアを思いつく。", "subscale": "creative-imagination", "reverse": false },
+    { "id": 16, "text": "積極的で、社交的である。", "subscale": "sociability", "reverse": false },
+    { "id": 17, "text": "冷淡で思いやりに欠けることがある。", "subscale": "compassion", "reverse": true },
+    { "id": 18, "text": "物事をきれいに揃えたりまとめたりする。", "subscale": "organization", "reverse": false },
+    { "id": 19, "text": "リラックスしていて、ストレスにうまく対処している。", "subscale": "anxiety", "reverse": true },
+    { "id": 20, "text": "芸術的関心があまりない。", "subscale": "aesthetic-sensitivity", "reverse": true },
+    { "id": 21, "text": "他の人にリーダーシップを発揮してもらうほうが良いと思う。", "subscale": "assertiveness", "reverse": true },
+    { "id": 22, "text": "礼儀正しく、他人に敬意をもって接する。", "subscale": "respectfulness", "reverse": false },
+    { "id": 23, "text": "根気強く、与えられた課題が終わるまで取り組む。", "subscale": "productiveness", "reverse": false },
+    { "id": 24, "text": "安心感を抱いており、心地よい。", "subscale": "depression", "reverse": true },
+    { "id": 25, "text": "考え方が複雑で、深く考える人間だ。", "subscale": "intellectual-curiosity", "reverse": false },
+    { "id": 26, "text": "他の人と比べて活発ではない。", "subscale": "energy-level", "reverse": true },
+    { "id": 27, "text": "他人の欠点を見つけ出す方だ。", "subscale": "trust", "reverse": true },
+    { "id": 28, "text": "少し不注意なところがある。", "subscale": "responsibility", "reverse": true },
+    { "id": 29, "text": "神経質で、感情的になりやすい。", "subscale": "emotional-volatility", "reverse": false },
+    { "id": 30, "text": "創造性がほとんどない。", "subscale": "creative-imagination", "reverse": true }
+  ],
+  "subscales": [
+    {
+      "id": "domain-e",
+      "name": "外向性 (E)",
+      "group": "domain",
+      "computed_from": ["sociability", "assertiveness", "energy-level"],
+      "description": "社交的・積極的・活力のある傾向",
+      "norm_source": "規準値はOSF電子付録(https://osf.io/5zwhj/)に掲載（本論文PDFには未記載）"
+    },
+    {
+      "id": "domain-a",
+      "name": "協調性 (A)",
+      "group": "domain",
+      "computed_from": ["compassion", "respectfulness", "trust"],
+      "description": "他者への共感・協力・思いやりの傾向",
+      "norm_source": "規準値はOSF電子付録に掲載"
+    },
+    {
+      "id": "domain-c",
+      "name": "勤勉性 (C)",
+      "group": "domain",
+      "computed_from": ["organization", "productiveness", "responsibility"],
+      "description": "計画的・勤勉・責任感がある傾向",
+      "norm_source": "規準値はOSF電子付録に掲載"
+    },
+    {
+      "id": "domain-n",
+      "name": "否定的情動性 (N)",
+      "group": "domain",
+      "computed_from": ["anxiety", "depression", "emotional-volatility"],
+      "description": "不安・抑うつ・情緒不安定の傾向（神経症傾向）",
+      "norm_source": "規準値はOSF電子付録に掲載"
+    },
+    {
+      "id": "domain-o",
+      "name": "開放性 (O)",
+      "group": "domain",
+      "computed_from": ["intellectual-curiosity", "aesthetic-sensitivity", "creative-imagination"],
+      "description": "知的好奇心・芸術への感受性・想像力の豊かさ",
+      "norm_source": "規準値はOSF電子付録に掲載"
+    },
+    {
+      "id": "sociability",
+      "name": "社交性",
+      "group": "facet",
+      "description": "人と交流することを好み、社交的な活動に積極的"
+    },
+    {
+      "id": "assertiveness",
+      "name": "自己主張性",
+      "group": "facet",
+      "description": "自分の意見を積極的に述べ、リーダーシップを発揮する"
+    },
+    {
+      "id": "energy-level",
+      "name": "活力",
+      "group": "facet",
+      "description": "エネルギッシュで活発、熱意や情熱を表現する"
+    },
+    {
+      "id": "compassion",
+      "name": "思いやり",
+      "group": "facet",
+      "description": "他者の気持ちに共感し、助けようとする"
+    },
+    {
+      "id": "respectfulness",
+      "name": "敬意",
+      "group": "facet",
+      "description": "他者を尊重し、礼儀正しく接する"
+    },
+    {
+      "id": "trust",
+      "name": "信用",
+      "group": "facet",
+      "description": "他者を信頼し、良い面を見ようとする"
+    },
+    {
+      "id": "organization",
+      "name": "秩序",
+      "group": "facet",
+      "description": "整理整頓を好み、規則正しく几帳面"
+    },
+    {
+      "id": "productiveness",
+      "name": "生産性",
+      "group": "facet",
+      "description": "課題に取り組み、やるべきことをやり遂げる"
+    },
+    {
+      "id": "responsibility",
+      "name": "責任感",
+      "group": "facet",
+      "description": "信頼され、約束や義務を果たす"
+    },
+    {
+      "id": "anxiety",
+      "name": "不安",
+      "group": "facet",
+      "description": "心配や緊張、ストレスを感じやすい"
+    },
+    {
+      "id": "depression",
+      "name": "抑うつ",
+      "group": "facet",
+      "description": "悲しみや落ち込み、気分の低下を感じやすい"
+    },
+    {
+      "id": "emotional-volatility",
+      "name": "情緒不安定性",
+      "group": "facet",
+      "description": "感情の起伏が激しく、コントロールしにくい"
+    },
+    {
+      "id": "intellectual-curiosity",
+      "name": "知的好奇心",
+      "group": "facet",
+      "description": "知識や抽象的概念への興味、哲学的思考を楽しむ"
+    },
+    {
+      "id": "aesthetic-sensitivity",
+      "name": "美的感性",
+      "group": "facet",
+      "description": "芸術・音楽・文学への感受性と鑑賞"
+    },
+    {
+      "id": "creative-imagination",
+      "name": "創造的想像力",
+      "group": "facet",
+      "description": "独創的なアイデアを生み出す豊かな想像力"
+    }
+  ],
+  "notes": "BFI-2-J（60項目版）の短縮版。各ドメイン6項目、各ファセット2項目。BFI-2-XS-J（超短縮版15項目）は本尺度の項目1〜15に相当。規準値（M, SD）はOSF(https://osf.io/5zwhj/)の電子付録Table S5にのみ掲載されており、本アプリでは偏差値を算出できない。"
+}

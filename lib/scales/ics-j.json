@@ -1,0 +1,62 @@
+{
+  "meta": {
+    "id": "ics-j",
+    "name": "対人的好奇心尺度",
+    "short_name": "対人好奇心",
+    "description": "他者の感情・秘密・属性に対する好奇心の程度を測定する尺度（11項目・3因子）",
+    "source": "西川・雨宮・楠見 (2022)",
+    "apa_citation": "西川 一二・雨宮 俊彦・楠見 孝 (2022). 対人的好奇心尺度の開発──人の感情・秘密・属性に関する好奇心探索──. 心理学研究, 93(5), 436–446. https://doi.org/10.4992/jjpsy.93.21208",
+    "doi": "10.4992/jjpsy.93.21208",
+    "target": "成人一般",
+    "language": "ja",
+    "tags": ["好奇心", "対人関係", "感情", "社会的認知"]
+  },
+  "instructions": "ふだんの自分にどの程度あてはまると思いますか。",
+  "response_options": [
+    { "value": 1, "label": "あてはまらない" },
+    { "value": 2, "label": "あまりあてはまらない" },
+    { "value": 3, "label": "どちらともいえない" },
+    { "value": 4, "label": "ややあてはまる" },
+    { "value": 5, "label": "あてはまる" }
+  ],
+  "items": [
+    { "id": 1, "text": "人の日記の内容が気になる", "subscale": "privacy", "reverse": false },
+    { "id": 2, "text": "声から人の感情を探る", "subscale": "emotion", "reverse": false },
+    { "id": 3, "text": "しぐさから、人の気持ちを探ろうとする", "subscale": "emotion", "reverse": false },
+    { "id": 4, "text": "表情を見て、人の考えていることを詮索する", "subscale": "emotion", "reverse": false },
+    { "id": 5, "text": "人の秘密を知りたい", "subscale": "privacy", "reverse": false },
+    { "id": 6, "text": "どこの出身地の人なのか聞いてみたい", "subscale": "attributes", "reverse": false },
+    { "id": 7, "text": "うわさ好きである", "subscale": "privacy", "reverse": false },
+    { "id": 8, "text": "行動を観察して、人の気持ちを知ろうとする", "subscale": "emotion", "reverse": false },
+    { "id": 9, "text": "今、どこに住んでいるのか聞いてみたい", "subscale": "attributes", "reverse": false },
+    { "id": 10, "text": "人がどんな特技を持っているのか知りたい", "subscale": "attributes", "reverse": false },
+    { "id": 11, "text": "異性との交際歴を知りたい", "subscale": "privacy", "reverse": false }
+  ],
+  "subscales": [
+    {
+      "id": "emotion",
+      "name": "人の感情への好奇心",
+      "description": "他者の感情や気持ちを声・しぐさ・表情から理解しようとする好奇心。高得点ほど他者の内面への関心が強い",
+      "norm_mean": 3.23,
+      "norm_sd": 0.92,
+      "norm_source": "西川ら(2022) 全国web調査 N=1500（18〜83歳, M_age=45.6）"
+    },
+    {
+      "id": "privacy",
+      "name": "人の秘密への好奇心",
+      "description": "人の秘密やうわさ、隠し事を知りたいとする好奇心。高得点ほど他者のプライベートへの関心が強い",
+      "norm_mean": 2.30,
+      "norm_sd": 0.93,
+      "norm_source": "西川ら(2022) 全国web調査 N=1500（18〜83歳, M_age=45.6）"
+    },
+    {
+      "id": "attributes",
+      "name": "人の属性への好奇心",
+      "description": "出身地・居住地・特技などの公的属性情報への好奇心。高得点ほど他者の社会的属性への関心が強い",
+      "norm_mean": 2.60,
+      "norm_sd": 0.97,
+      "norm_source": "西川ら(2022) 全国web調査 N=1500（18〜83歳, M_age=45.6）"
+    }
+  ],
+  "notes": "逆転項目なし。規準値は全国web調査（N=1500）を使用。大学生規準（N=839）: 感情M=3.95/SD=0.85, 秘密M=2.81/SD=1.02, 属性M=2.93/SD=1.08。"
+}

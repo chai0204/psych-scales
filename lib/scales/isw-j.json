@@ -1,0 +1,73 @@
+{
+  "meta": {
+    "id": "isw-j",
+    "name": "仕事切り替え困難尺度",
+    "short_name": "仕事切替困難",
+    "description": "仕事からプライベートな時間への心理的切り替えの困難さを測定する尺度（22項目・3因子）",
+    "source": "内村 (2022)",
+    "apa_citation": "内村 慶士 (2022). 仕事切り替え困難尺度の開発. 心理学研究, 93(5), 447–457. https://doi.org/10.4992/jjpsy.93.21211",
+    "doi": "10.4992/jjpsy.93.21211",
+    "target": "正規雇用の就業者",
+    "language": "ja",
+    "tags": ["仕事", "ワークライフバランス", "反すう", "ストレス", "切り替え"]
+  },
+  "instructions": "あなたにとっての「プライベートな時間」（勤務外の時間で、仕事と切り分けたい私生活の時間）の過ごし方についてお聞きします。以下の質問文を読んで、ご自身の特徴に最もよく当てはまる選択肢をお選びください。",
+  "response_options": [
+    { "value": 1, "label": "全く当てはまらない" },
+    { "value": 2, "label": "あまり当てはまらない" },
+    { "value": 3, "label": "どちらともいえない" },
+    { "value": 4, "label": "やや当てはまる" },
+    { "value": 5, "label": "よく当てはまる" }
+  ],
+  "items": [
+    { "id": 1, "text": "「プライベートな時間」も、仕事での出来事を思い出してブルーな気持ちになったり、イライラしたりすることがよくある", "subscale": "emotional-recall", "reverse": false },
+    { "id": 2, "text": "「プライベートな時間」に、仕事における状況または自分自身の課題について、改善できる方法を考えることが多い", "subscale": "problem-solving", "reverse": false },
+    { "id": 3, "text": "仕事がうまくいかないと、「プライベートな時間」も、自分はこの仕事でやっていけないのではないかと、繰り返し考える", "subscale": "work-pessimism", "reverse": false },
+    { "id": 4, "text": "仕事で嫌な出来事があると、「プライベートな時間」にも、その時の具体的な場面や状況がよく思い出される", "subscale": "emotional-recall", "reverse": false },
+    { "id": 5, "text": "「プライベートな時間」に、仕事上の問題について、何が原因なのか考えていることがよくある", "subscale": "problem-solving", "reverse": false },
+    { "id": 6, "text": "「プライベートな時間」に、「自分がした業務でミスがあったのでは」と心配になる", "subscale": "work-pessimism", "reverse": false },
+    { "id": 7, "text": "「プライベートな時間」に、仕事上の課題の解決策について考えることは少ない", "subscale": "problem-solving", "reverse": true },
+    { "id": 8, "text": "仕事であった嫌な出来事のことを考えては、「プライベートな時間」にもその時の気持ちを思い出す", "subscale": "emotional-recall", "reverse": false },
+    { "id": 9, "text": "仕事でうまくいかないことがあると、「プライベートな時間」も仕事に対する自分の能力のなさをつくづくと考える", "subscale": "work-pessimism", "reverse": false },
+    { "id": 10, "text": "「プライベートな時間」に、過去またはその日勤務中に経験した嫌な気分がぶり返すことはあまりない", "subscale": "emotional-recall", "reverse": true },
+    { "id": 11, "text": "「プライベートな時間」も、仕事上の課題を解決する方法について、考えることを止められない", "subscale": "problem-solving", "reverse": false },
+    { "id": 12, "text": "仕事がうまくいかないと、仕事ができない自分に落胆し「プライベートな時間」も気分を持ち直せない", "subscale": "work-pessimism", "reverse": false },
+    { "id": 13, "text": "勤務中に感情的な出来事があると、「プライベートな時間」になっても、その気持ちが再燃する", "subscale": "emotional-recall", "reverse": false },
+    { "id": 14, "text": "業務上の問題があると、「プライベートな時間」に、その解決に向けた糸口を探していることがよくある", "subscale": "problem-solving", "reverse": false },
+    { "id": 15, "text": "勤務中に嫌な出来事があると、この仕事を続けるのは難しいのではないかと、「プライベートな時間」も考える", "subscale": "work-pessimism", "reverse": false },
+    { "id": 16, "text": "「プライベートな時間」に、担当している仕事がうまくいかなかったらどうしようと心配になり、最悪のケースについて考える", "subscale": "work-pessimism", "reverse": false },
+    { "id": 17, "text": "業務上の問題があっても、「プライベートな時間」に、それを解決する方法を考えることはあまりない", "subscale": "problem-solving", "reverse": true },
+    { "id": 18, "text": "「プライベートな時間」に、自分の仕事のできなさを思い返しては、自己嫌悪に陥る", "subscale": "work-pessimism", "reverse": false },
+    { "id": 19, "text": "「プライベートな時間」に、現在取り組んでいる業務で、これから起きるかもしれない問題について、心配になる", "subscale": "work-pessimism", "reverse": false },
+    { "id": 20, "text": "会社で感情的な出来事があっても、「プライベートな時間」にその具体的な場面が思い返されることはほとんどない", "subscale": "emotional-recall", "reverse": true },
+    { "id": 21, "text": "仕事で失敗すると、「自分はダメだ」という考えに発展して、「プライベートな時間」でも繰り返し考えてしまう", "subscale": "work-pessimism", "reverse": false },
+    { "id": 22, "text": "なんとかしなければならない業務上の問題があると、「プライベートな時間」も、ひたすら解決策を考える", "subscale": "problem-solving", "reverse": false }
+  ],
+  "subscales": [
+    {
+      "id": "emotional-recall",
+      "name": "感情想起",
+      "description": "仕事で経験した嫌な出来事の場面や感情がプライベートな時間にも繰り返しよみがえる傾向。高得点ほど感情的な反すうが強い",
+      "norm_mean": 3.53,
+      "norm_sd": 0.83,
+      "norm_source": "内村(2022) 正規雇用者 N=416（総得点M=21.18, SD=4.98を6項目で割った項目平均）"
+    },
+    {
+      "id": "work-pessimism",
+      "name": "職能悲観",
+      "description": "業務遂行能力についての悲観的な心配や反すう。高得点ほど仕事に対する自己否定的思考が強い",
+      "norm_mean": 3.11,
+      "norm_sd": 0.96,
+      "norm_source": "内村(2022) 正規雇用者 N=416（総得点M=28.02, SD=8.67を9項目で割った項目平均）"
+    },
+    {
+      "id": "problem-solving",
+      "name": "問題解決",
+      "description": "仕事上の問題や課題についてプライベートな時間にも解決策を考え続ける傾向。高得点ほど問題解決的思考が持続する",
+      "norm_mean": 3.15,
+      "norm_sd": 0.84,
+      "norm_source": "内村(2022) 正規雇用者 N=416（総得点M=22.07, SD=5.89を7項目で割った項目平均）"
+    }
+  ],
+  "notes": "原版はSection A（自由記述：プライベートな時間の場面想定）とSection B（22項目リッカート式）で構成。本アプリではSection B のみ実施。逆転項目: 7, 10, 17, 20。高得点ほど仕事からの切り替え困難が高い。"
+}
