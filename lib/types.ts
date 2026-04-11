@@ -54,12 +54,28 @@ export interface ScaleMeta {
   tags?: string[];                  // 検索用タグ（例: ["人格", "自己効力感"]）
 }
 
+// シナリオ形式の選択肢（場面想定法尺度用）
+export interface ScenarioOption {
+  id: string;           // 選択肢ID（例: "1a", "1b"）
+  text: string;         // 選択肢テキスト
+  is_target: boolean;   // true=得点対象（SC反応等）, false=フィラー
+}
+
+export interface Scenario {
+  id: number;           // 場面番号
+  text: string;         // 場面の記述
+  options: ScenarioOption[];
+  select_count: number; // 選択する数（例: 2）
+}
+
 export interface Scale {
   meta: ScaleMeta;
   instructions?: string;            // 回答者への教示文
+  format?: "likert" | "scenario";   // 回答形式（デフォルト: likert）
   response_options: ResponseOption[];
   items: ScaleItem[];
   subscales: Subscale[];
+  scenarios?: Scenario[];           // シナリオ形式の場面リスト
   clusters?: Cluster[];            // クラスタ定義（任意）
   notes?: string;                  // 登録時のメモ（採点方法の補足など）
 }
@@ -85,5 +101,6 @@ export interface ScoreResult {
   scale_name: string;
   subscale_results: SubscaleResult[];
   cluster?: Cluster;               // 該当クラスタ（クラスタ定義がある場合）
-  responses: Record<number, number>; // item_id -> response_value
+  responses: Record<number, number>; // item_id -> response_value（likert用）
+  scenario_responses?: Record<number, string[]>; // scenario_id -> 選択したoption ID（scenario用）
 }

@@ -1,4 +1,4 @@
-import type { Scale, ScoreResult, SubscaleResult, Cluster, ClusterCondition } from "./types";
+import type { Scale, ScoreResult, SubscaleResult, Cluster, ClusterCondition, Scenario } from "./types";
 
 // 偏差値の計算: 10 * (x - mean) / sd + 50
 function calcDeviationScore(raw: number, mean: number, sd: number): number {
@@ -83,6 +83,62 @@ export function calculateScore(
     subscale_results: subscaleResults,
     cluster,
     responses,
+  };
+}
+
+// シナリオ形式の採点
+export function calculateScenarioScore(
+  scale: Scale,
+  scenarioResponses: Record<number, string[]>
+): ScoreResult {
+  const scenarios = scale.scenarios ?? [];
+  let totalTargetSelected = 0;
+  let totalPossibleTargets = 0;
+
+  for (const scenario of scenarios) {
+    const selected = scenarioResponses[scenario.id] ?? [];
+    totalTargetSelected += selected.filter((optId) =>
+      scenario.options.find((o) => o.id === optId)?.is_target
+    ).length;
+    totalPossibleTargets += scenario.options.filter((o) => o.is_target).length;
+  }
+
+  const scenarioCount = scenarios.length;
+  const meanScore = scenarioCount > 0 ? totalTargetSelected / scenarioCount : 0;
+
+  const subscaleResults: SubscaleResult[] = scale.subscales.map((sub) => {
+    const deviation =
+      sub.norm_mean !== undefined && sub.norm_sd !== undefined
+        ? Math.round(calcDeviationScore(meanScore, sub.norm_mean, sub.norm_sd) * 10) / 10
+        : undefined;
+
+    return {
+      subscale_id: sub.id,
+      subscale_name: sub.name,
+      subscale_description: sub.description,
+      group: sub.group,
+      raw_score: totalTargetSelected,
+      max_score: totalPossibleTargets,
+      item_count: scenarioCount,
+      mean_score: meanScore,
+      deviation_score: deviation,
+      norm_mean: sub.norm_mean,
+      norm_sd: sub.norm_sd,
+      norm_source: sub.norm_source,
+    };
+  });
+
+  const cluster = scale.clusters
+    ? determineCluster(scale.clusters, subscaleResults)
+    : undefined;
+
+  return {
+    scale_id: scale.meta.id,
+    scale_name: scale.meta.name,
+    subscale_results: subscaleResults,
+    cluster,
+    responses: {},
+    scenario_responses: scenarioResponses,
   };
 }
 

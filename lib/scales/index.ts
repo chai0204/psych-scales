@@ -13,6 +13,7 @@ import ecrRsFather from "./ecr-rs-father.json";
 import ecrRsPartner from "./ecr-rs-partner.json";
 import ecrRsFriend from "./ecr-rs-friend.json";
 import bscsJ from "./bscs-j.json";
+import scriJ from "./scri-j.json";
 
 const scaleList: Scale[] = [
   bigFiveS as Scale,
@@ -24,6 +25,7 @@ const scaleList: Scale[] = [
   ecrRsPartner as Scale,
   ecrRsFriend as Scale,
   bscsJ as Scale,
+  scriJ as Scale,
 ];
 
 export function getAllScales(): Scale[] {
