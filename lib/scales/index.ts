@@ -17,8 +17,6 @@ import scriJ from "./scri-j.json";
 import iswJ from "./isw-j.json";
 import indecisivenessJ from "./indecisiveness-j.json";
 import icsJ from "./ics-j.json";
-import spsJ from "./sps-j.json";
-import bfi2sJ from "./bfi-2-s-j.json";
 import gritJ from "./grit-j.json";
 
 const scaleList: Scale[] = [
@@ -35,8 +33,6 @@ const scaleList: Scale[] = [
   iswJ as Scale,
   indecisivenessJ as Scale,
   icsJ as Scale,
-  spsJ as Scale,
-  bfi2sJ as Scale,
   gritJ as Scale,
 ];
 
