@@ -267,7 +267,6 @@ export default function AdminPage() {
   }, [fetchTokens]);
 
   async function handleRevoke(id: string) {
-    if (!confirm("このトークンを失効させますか？")) return;
     await fetch(`/api/admin/tokens/${id}`, { method: "DELETE" });
     fetchTokens();
   }
